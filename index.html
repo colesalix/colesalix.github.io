@@ -11,7 +11,6 @@
       --bg:    #05070a;
       --paper: #d8d0c0;
       --gold:  #6f5a3a;
-      --rust:  #5a2518;
       --steel: #3a4a5a;
       --muted: #5a5248;
       --dim:   #282420;
@@ -41,9 +40,7 @@
       z-index:2000;
       pointer-events:none;
       opacity:0.085;
-      background-image:
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
-        linear-gradient(rgba(30,20,10,0.4), rgba(30,20,10,0.15));
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"), linear-gradient(rgba(30,20,10,0.4), rgba(30,20,10,0.15));
       background-size:140px, cover;
       mix-blend-mode: multiply;
     }
@@ -62,9 +59,8 @@
     .hero-collage{position:absolute;top:18%;left:50%;transform:translateX(-50%);width:380px;height:520px;z-index:5;opacity:0.75;filter: contrast(1.25) brightness(0.75) grayscale(0.4);border:1px solid rgba(140,110,60,0.25);box-shadow:0 0 80px rgba(0,0,0,0.9);overflow:hidden;}
     .hero-collage img{width:100%;height:100%;object-fit:cover;mix-blend-mode: multiply;}
 
-    .layer-wires,.layer-particles{position:absolute;inset:0;pointer-events:none;will-change:transform;}
-    .layer-particles{z-index:4;}
-    .layer-wires{z-index:2;}
+    .layer-wires{position:absolute;inset:0;z-index:2;pointer-events:none;will-change:transform;}
+    .layer-particles{position:absolute;inset:0;z-index:4;pointer-events:none;will-change:transform;}
 
     .spark{position:absolute;border-radius:50%;background:var(--gold);opacity:0;animation:sparkDrift var(--sd) var(--sdelay) ease-in infinite;}
 
@@ -113,8 +109,6 @@
 </head>
 <body>
 
-<div class="scanline"></div>
-
 <nav>
   <div class="logo">Cole salix</div>
   <ul>
@@ -145,7 +139,7 @@
   </div>
 
   <div class="hero-collage">
-    <img src="https://your-image-link-here.jpg" alt="Cole salix"> <!-- Change this later if you want -->
+    <img src="image.png" alt="Cole salix">
   </div>
 
   <div class="layer-wires" id="layerWires">
@@ -182,20 +176,11 @@
     <span>syege</span><span class="sep">✦</span>
     <span>vawnupton</span><span class="sep">✦</span>
     <span>hlywrk</span><span class="sep">✦</span>
-    <span>Siberia Hills</span><span class="sep">✦</span>
-    <span>RPL</span><span class="sep">✦</span>
-    <span>Coin Laundry Mfg</span><span class="sep">✦</span>
-    <span>ditch.la</span><span class="sep">✦</span>
-    <span>AJobInterview</span><span class="sep">✦</span>
-    <span>Single Mothers</span><span class="sep">✦</span>
-    <span>syege</span><span class="sep">✦</span>
-    <span>vawnupton</span><span class="sep">✦</span>
-    <span>hlywrk</span><span class="sep">✦</span>
   </div>
 </div>
 
 <section id="contact">
-  <div class="contact-wrap reveal">
+  <div class="contact-wrap">
     <div class="contact-pre">Get in touch</div>
     <div class="contact-title">Let's<br><em>connect.</em></div>
     <div class="contact-links">
@@ -211,42 +196,45 @@
 </footer>
 
 <script>
-// Cable + Parallax + Particles (simplified version)
 const canvas = document.getElementById('cableCanvas');
 const ctx = canvas.getContext('2d');
-function resize(){canvas.width=canvas.offsetWidth;canvas.height=canvas.offsetHeight;}
-resize(); window.addEventListener('resize',resize);
+function resizeCanvas(){ canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; }
+resizeCanvas(); window.addEventListener('resize', resizeCanvas);
 
-let mx=0,my=0;
-window.addEventListener('mousemove', e=>{mx=e.clientX/window.innerWidth-0.5; my=e.clientY/window.innerHeight-0.5;});
+let mx = 0, my = 0;
+window.addEventListener('mousemove', e => {
+  mx = e.clientX / window.innerWidth - 0.5;
+  my = e.clientY / window.innerHeight - 0.5;
+});
 
 const rings = document.getElementById('layerRings');
-function lerp(a,b,t){return a+(b-a)*t;}
-let pcx=0,pcy=0;
-function parallax(){
-  pcx=lerp(pcx,mx,0.04); pcy=lerp(pcy,my,0.04);
-  rings.style.transform=`translate(${pcx*-25}px,${pcy*-25}px)`;
-  requestAnimationFrame(parallax);
+function lerp(a, b, t){ return a + (b - a) * t; }
+let pcx = 0, pcy = 0;
+function animateParallax(){
+  pcx = lerp(pcx, mx, 0.04);
+  pcy = lerp(pcy, my, 0.04);
+  rings.style.transform = `translate(${pcx * -25}px, ${pcy * -25}px)`;
+  requestAnimationFrame(animateParallax);
 }
-parallax();
+animateParallax();
 
 const pEl = document.getElementById('layerParticles');
-for(let i=0;i<75;i++){
-  const p=document.createElement('div');
-  p.className='spark';
-  const size=Math.random()*2.8+0.5;
-  p.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;--stx:${(Math.random()-0.5)*160}px;--sty:${-(Math.random()*220+40)}px;--sd:${(Math.random()*12+8)}s;--sdelay:${Math.random()*16}s;width:${size}px;height:${size}px;`;
+for(let i = 0; i < 75; i++){
+  const p = document.createElement('div');
+  p.className = 'spark';
+  const size = Math.random() * 2.8 + 0.5;
+  p.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;--stx:${(Math.random()-0.5)*160}px;--sty:${-(Math.random()*220+40)}px;--sd:${(Math.random()*12+8)}s;--sdelay:${Math.random()*16}s;width:${size}px;height:${size}px;`;
   pEl.appendChild(p);
 }
 
-// Geo shapes
-for(let i=0;i<6;i++){
-  const s=document.createElement('div');
-  s.className='geo-shape';
-  const sz=80+Math.random()*220;
-  s.style.width=sz+'px'; s.style.height=sz+'px';
-  s.style.left=Math.random()*100+'%';
-  s.style.top=Math.random()*100+'%';
+for(let i = 0; i < 6; i++){
+  const s = document.createElement('div');
+  s.className = 'geo-shape';
+  const sz = 80 + Math.random()*220;
+  s.style.width = sz + 'px';
+  s.style.height = sz + 'px';
+  s.style.left = Math.random()*100 + '%';
+  s.style.top = Math.random()*100 + '%';
   document.querySelector('.hero').appendChild(s);
 }
 </script>
