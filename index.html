@@ -1,29 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cole Pursel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inconsolata:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0e0c0a;
+      --paper: #f2ece0;
+      --ink: #1a1612;
+      --muted: #7a7065;
+      --dim: #3a342e;
+      --rule: #2a2420;
+    }
 
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
+    body {
+      background: var(--bg);
+      color: var(--paper);
+      font-family: 'Inconsolata', monospace;
+      font-weight: 300;
+      font-size: 13px;
+      line-height: 1.75;
+    }
 
-  
-  
-  Your Name — Portfolio
-  
+    a { color: inherit; text-decoration: none; }
 
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      pointer-events: none;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px;
+    }
 
-  
-    Your Name
-    Creative / Director / Designer
-  
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.75rem 3rem;
+    }
 
-  
-    
-      Project Title
-      Short description of the work.
-      
-        
-      
-    
-  
+    nav .logo {
+      font-family: 'Cormorant', serif;
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--paper);
+      opacity: 0.5;
+    }
 
-  
-    your@email.com
-  
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 3rem;
+    }
 
+    nav ul a {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--paper);
+      opacity: 0.25;
+      transition: opacity 0.3s;
+    }
 
+    nav ul a:hover { opacity: 0.7; }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 5rem 3rem 4rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .hero-loc {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: up 1s 0.3s forwards;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant', serif;
+      font-weight: 300;
+      font-size: clamp(5rem, 15vw, 15rem);
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      color: var(--paper);
+      opacity: 0;
+      animation: up 1s 0.5s forwards;
+    }
+
+    .hero h1 em { font-style: italic; }
+
+    .hero-rule {
+      width: 100%;
+      height: 1px;
+      background: var(--rule);
+      margin: 2.5rem 0;
+      opacity: 0;
+      animation: up 1s 0.7s forwards;
+    }
+
+    .hero-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      opacity: 0;
+      animation: up 1s 0.9s forwards;
+    }
+
+    .hero-desc {
+      font-family: 'Cormorant', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 400px;
+      line-height: 1.65;
+    }
+
+    .hero-disciplines {
+      text-align: right;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--dim);
+      line-height: 2.4;
+    }
+
+    .ticker {
+      overflow: hidden;
+      border-bottom: 1px solid var(--rule);
+      padding: 0.85rem 0;
+      white-space: nowrap;
+    }
+
+    .ticker-track {
+      display: inline-block;
+      animation: slide 32s linear infinite;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    .ticker-track span { margin: 0 2.5rem; }
+    .ticker-track .sep { color: var(--rule); letter-spacing: 0; }
+
+    section { border-bottom: 1px solid var(--rule); }
+
+    .section-header {
+      display: grid;
+      grid-template-columns: 3rem 1fr auto;
+      align-items: baseline;
+      gap: 2rem;
+      padding: 3rem 3rem 2.5rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .section-index {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: var(--dim);
+    }
+
+    .section-title {
+      font-family: 'Cormorant', serif;
+      font-weight: 300;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      letter-spacing: 0.02em;
+      line-height: 1;
+      color: var(--paper);
+    }
+
+    .section-note {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      color: var(--dim);
+      align-self: flex-end;
+      padding-bottom: 6px;
+    }
+
+    .entries { padding: 0 3rem; }
+
+    .entry {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 2.5rem;
+      padding: 2.75rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .entry:last-child { border-bottom: none; }
+
+    .entry-meta { padding-top: 2px; }
+
+    .entry-label {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--dim);
+      line-height: 2;
+    }
+
+    .entry-role {
+      font-family: 'Cormorant', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .entry-title {
+      font-family: 'Cormorant', serif;
+      font-weight: 400;
+      font-size: 1.8rem;
+      letter-spacing: 0.02em;
+      color: var(--paper);
+      margin-bottom: 0.6rem;
+      line-height: 1.1;
+    }
+
+    .entry-body {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.9;
+      max-width: 560px;
+    }
+
+    .reel-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .reel-wrap {
+      min-width: 0;
+    }
+
+    .reel-wrap .instagram-media {
+      min-width: 0 !important;
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+
+    @media (max-width: 900px) {
+      .reel-grid { grid-template-columns: 1fr; }
+    }
+
+    .embed-wrap {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      margin-top: 1.25rem;
+    }
+
+    .embed-wrap iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+
+    .contact-wrap {
+      padding: 6rem 3rem 5rem;
+    }
+
+    .contact-pre {
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 1rem;
+    }
+
+    .contact-title {
+      font-family: 'Cormorant', serif;
+      font-weight: 300;
+      font-size: clamp(3.5rem, 9vw, 9rem);
+      line-height: 0.92;
+      letter-spacing: -0.01em;
+      color: var(--paper);
+      margin-bottom: 3rem;
+    }
+
+    .contact-title em { font-style: italic; }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .contact-links a {
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      transition: color 0.25s;
+    }
+
+    .contact-links a:hover { color: var(--paper); }
+
+    footer {
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--dim);
+      border-top: 1px solid var(--rule);
+    }
+
+    @keyframes up {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slide {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    @media (max-width: 640px) {
+      nav { padding: 1.5rem; }
+      nav ul { display: none; }
+      .hero { padding: 4rem 1.5rem 3rem; }
+      .hero-bottom { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
+      .hero-disciplines { text-align: left; }
+      .section-header { grid-template-columns: 1fr; padding: 2rem 1.5rem 1.5rem; }
+      .section-index, .section-note { display: none; }
+      .entries { padding: 0 1.5rem; }
+      .entry { grid-template-columns: 1fr; gap: 0.5rem; }
+      .contact-wrap { padding: 4rem 1.5rem 3rem; }
+      footer { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">Cole Pursel</div>
+    <ul>
+      <li><a href="#fashion">Fashion</a></li>
+      <li><a href="#music">Music</a></li>
+      <li><a href="#art">Art</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-loc">Los Angeles, California</div>
+    <h1>Cole<br><em>Pursel</em></h1>
+    <div class="hero-rule"></div>
+    <div class="hero-bottom">
+      <p class="hero-desc">Fashion. Music. Art. Events.<br>I don't follow trends — I make them.</p>
+      <div class="hero-disciplines">
+        Designer<br>
+        Cut &amp; Sew<br>
+        DJ / Producer<br>
+        Event Director<br>
+        Visual Artist<br>
+        Model
+      </div>
+    </div>
+  </div>
+
+  <div class="ticker">
+    <div class="ticker-track">
+      <span>Siberia Hills</span><span class="sep">/</span>
+      <span>RPL</span><span class="sep">/</span>
+      <span>Coin Laundry Mfg</span><span class="sep">/</span>
+      <span>ditch.la</span><span class="sep">/</span>
+      <span>AJobInterview</span><span class="sep">/</span>
+      <span>Single Mothers</span><span class="sep">/</span>
+      <span>syege</span><span class="sep">/</span>
+      <span>vawnupton</span><span class="sep">/</span>
+      <span>hlywrk</span><span class="sep">/</span>
+      <span>Siberia Hills</span><span class="sep">/</span>
+      <span>RPL</span><span class="sep">/</span>
+      <span>Coin Laundry Mfg</span><span class="sep">/</span>
+      <span>ditch.la</span><span class="sep">/</span>
+      <span>AJobInterview</span><span class="sep">/</span>
+      <span>Single Mothers</span><span class="sep">/</span>
+      <span>syege</span><span class="sep">/</span>
+      <span>vawnupton</span><span class="sep">/</span>
+      <span>hlywrk</span><span class="sep">/</span>
+    </div>
+  </div>
+
+  <section id="fashion">
+    <div class="section-header">
+      <div class="section-index">01</div>
+      <div class="section-title">Fashion</div>
+      <div class="section-note">2020 — Present</div>
+    </div>
+    <div class="entries">
+
+      <div class="entry">
+        <div class="entry-meta">
+          <div class="entry-label">Recent</div>
+          <div class="entry-role">Personal Assistant</div>
+        </div>
+        <div>
+          <div class="entry-title">Siberia Hills — Daf</div>
+          <div class="entry-body">Personal assistant to Daf, working within the Siberia Hills world. Immersed in one of LA's most distinct and uncompromising creative operations.</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-meta">
+          <div class="entry-label">Recent</div>
+          <div class="entry-role">Personal Assistant</div>
+        </div>
+        <div>
+          <div class="entry-title">Rob Reynolds</div>
+          <div class="entry-body">Personal assistant to Rob Reynolds. Hands-on experience operating at the intersection of fashion, culture, and creative direction in LA.</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-meta">
+          <div class="entry-label">—</div>
+          <div class="entry-role">Assistant</div>
+        </div>
+        <div>
+          <div class="entry-title">RPL — Roy Public Label</div>
+          <div class="entry-body">Assisted recluseroy and Samuel David. Learned construction and design under roy's brand after an apprenticeship at ditch.la. Fully cut and sewn garments: pants, shirts, shorts, skirts, gloves, trench coats, backpacks.</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-meta">
+          <div class="entry-label">—</div>
+          <div class="entry-role">Assistant</div>
+        </div>
+        <div>
+          <div class="entry-title">Coin Laundry Mfg</div>
+          <div class="entry-body">Worked under Kel Saborouh. Deepened manufacturing knowledge and understanding of the production side of independent fashion.</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-meta">
+          <div class="entry-label">—</div>
+          <div class="entry-role">Custom Work</div>
+        </div>
+        <div>
+          <div class="entry-title">Artists &amp; Collaborators</div>
+          <div class="entry-body">Custom garments and accessories for underground music artists. Custom shoes for Perto. Custom severed limb keychains for bbpue and Perto. Toured Eric Payne's studio — studied shoemaking from the ground up.</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-meta">
+          <div class="entry-label">—</div>
+          <div class="entry-role">Model</div>
+        </div>
+        <div>
+          <div class="entry-title">Runway &amp; Editorial</div>
+          <div class="entry-body">Modeled for vawnupton, hlywrk, jacov, and other LA designers. Runway, product promotion, on-camera work. A presence in the underground LA fashion circuit.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="music">
+    <div class="section-header">
+      <div class="section-index">02</div>
+      <div class="section-title">Music</div>
+      <div class="section-note">Active</div>
+    </div>
+    <div class="entries">
+
+      <div class="entry">
+        <div class="entry-meta">
+          <div class="entry-label">Band</div>
+          <div class="entry-role">Producer / Member</div>
+        </div>
+        <div>
+          <div class="entry-title">Single Mothers</div>
+          <div class="entry-body">Electronic music band. Co-writing and producing original material. Solo work released under the alias syege.</div>
+          <!-- <div class="embed-wrap"><iframe src="https://player.vimeo.com/video/VIDEOID" allowfullscreen></iframe></div> -->
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-meta">
+          <div class="entry-label">Live</div>
+          <div class="entry-role">DJ / Sound</div>
+        </div>
+        <div>
+          <div class="entry-title">Live Sets &amp; Sound Systems</div>
+          <div class="entry-body">DJ sets at shows across LA. Full sound system setup and operation. Fluent in Ableton Live, FL Studio, and live performance hardware.</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-meta">
+          <div class="entry-label">Ongoing</div>
+          <div class="entry-role">Founder</div>
+        </div>
+        <div>
+          <div class="entry-title">AJobInterview</div>
+          <div class="entry-body">Started as a question: how many people can I bring together? Grew from 30 people to a recurring event series — house parties, shows, live music. Formerly Crashout Weekend. The long-term vision is proper festivals and life-changing experiences at scale.</div>
+          <div class="reel-grid">
+            <div class="reel-wrap">
+              <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DLVitdeh6kZ/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14"></blockquote>
+            </div>
+            <div class="reel-wrap">
+              <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DQfCMgDEpP6/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14"></blockquote>
+            </div>
+            <div class="reel-wrap">
+              <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DTd2G0Gkpxw/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14"></blockquote>
+            </div>
+          </div>
+          <script async src="//www.instagram.com/embed.js"></script>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="art">
+    <div class="section-header">
+      <div class="section-index">03</div>
+      <div class="section-title">Art</div>
+      <div class="section-note">Always</div>
+    </div>
+    <div class="entries">
+
+      <div class="entry">
+        <div class="entry-meta">
+          <div class="entry-label">Visual</div>
+          <div class="entry-role">Multi-medium</div>
+        </div>
+        <div>
+          <div class="entry-title">Drawing, Painting, Sculpture, Graffiti</div>
+          <div class="entry-body">Making art since the first memory. Every wall covered. Drawing, sketching, painting, sculpting, graffiti. Designed and released printed flags. Adobe Illustrator, Photoshop, Premiere Pro.</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-meta">
+          <div class="entry-label">Digital</div>
+          <div class="entry-role">Web / Design</div>
+        </div>
+        <div>
+          <div class="entry-title">Web Design</div>
+          <div class="entry-body">Designed and launched websites. Built this one from scratch in a terminal.</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-meta">
+          <div class="entry-label">—</div>
+          <div class="entry-role">Taste</div>
+        </div>
+        <div>
+          <div class="entry-title">Leading, Not Following</div>
+          <div class="entry-body">Growing nails before it was a thing. Bullet holes in hats. Thumb holes cut into sleeves. The ideas move outward. Looking for a project bigger than any one person — the kind that changes people's lives.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact-wrap">
+      <div class="contact-pre">Get in touch</div>
+      <div class="contact-title">Let's<br><em>work.</em></div>
+      <div class="contact-links">
+        <a href="mailto:your@email.com">your@email.com</a>
+        <a href="https://instagram.com/yourhandle" target="_blank">Instagram ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Cole Pursel</span>
+    <span>Los Angeles — © 2026</span>
+  </footer>
+
+</body>
+</html>
