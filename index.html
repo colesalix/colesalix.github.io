@@ -1,606 +1,564 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cole Pursel</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cole Salix</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inconsolata:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&family=Spectral:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0e0c0a;
-      --paper: #f2ece0;
-      --ink: #1a1612;
-      --muted: #7a7065;
-      --dim: #3a342e;
-      --rule: #2a2420;
+      --bg:    #05070a;
+      --paper: #d8d0c0;
+      --gold:  #8a6e3a;
+      --rust:  #5a2518;
+      --steel: #3a4a5a;
+      --muted: #5a5248;
+      --dim:   #282420;
+      --rule:  #141210;
+      --glow:  rgba(100,80,40,0.12);
+      --blueglow: rgba(60,80,120,0.1);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
 
-    body {
-      background: var(--bg);
-      color: var(--paper);
-      font-family: 'Inconsolata', monospace;
-      font-weight: 300;
-      font-size: 13px;
-      line-height: 1.75;
+    body{
+      background:var(--bg);
+      color:var(--paper);
+      font-family:'Crimson Pro',serif;
+      font-weight:300;
+      font-size:15px;
+      line-height:1.7;
+      overflow-x:hidden;
     }
 
-    a { color: inherit; text-decoration: none; }
+    a{color:inherit;text-decoration:none;}
 
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      z-index: 999;
-      pointer-events: none;
-      opacity: 0.04;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-size: 180px;
+    /* GRAIN OVERLAY */
+    body::after{
+      content:'';position:fixed;inset:0;z-index:2000;pointer-events:none;
+      opacity:0.055;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size:160px;
     }
 
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.75rem 3rem;
+    /* NAV */
+    nav{
+      position:fixed;top:0;left:0;right:0;z-index:500;
+      display:flex;justify-content:space-between;align-items:center;
+      padding:1.6rem 3rem;
+    }
+    nav .logo{
+      font-family:'EB Garamond',serif;font-size:0.9rem;
+      letter-spacing:0.3em;text-transform:uppercase;
+      color:var(--paper);opacity:0.35;
+    }
+    nav ul{list-style:none;display:flex;gap:2.8rem;}
+    nav ul a{
+      font-family:'Crimson Pro',serif;font-size:11px;
+      letter-spacing:0.18em;text-transform:uppercase;
+      color:var(--paper);opacity:0.2;transition:opacity 0.4s;
+    }
+    nav ul a:hover{opacity:0.55;}
+
+    /* HERO */
+    .hero{
+      position:relative;min-height:100vh;
+      display:flex;flex-direction:column;justify-content:flex-end;
+      padding:5rem 3rem 4rem;
+      border-bottom:1px solid var(--rule);
+      overflow:hidden;
     }
 
-    nav .logo {
-      font-family: 'Cormorant', serif;
-      font-size: 1rem;
-      font-weight: 400;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--paper);
-      opacity: 0.5;
+    .layer-space{
+      position:absolute;inset:0;z-index:0;pointer-events:none;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 40%, #0d1520 0%, #05070a 70%),
+        radial-gradient(ellipse 30% 30% at 30% 60%, #1a0a08 0%, transparent 60%),
+        radial-gradient(ellipse 20% 40% at 75% 30%, #0a0d18 0%, transparent 50%);
     }
 
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 3rem;
+    .layer-rings{
+      position:absolute;inset:-15%;z-index:1;pointer-events:none;
+      will-change:transform;
+      display:flex;align-items:center;justify-content:center;
     }
 
-    nav ul a {
-      font-size: 10px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--paper);
-      opacity: 0.25;
-      transition: opacity 0.3s;
+    .layer-wires{
+      position:absolute;inset:0;z-index:2;pointer-events:none;will-change:transform;
     }
 
-    nav ul a:hover { opacity: 0.7; }
+    .layer-particles{position:absolute;inset:0;z-index:4;pointer-events:none;will-change:transform;}
 
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 5rem 3rem 4rem;
-      border-bottom: 1px solid var(--rule);
+    .layer-models{position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden;}
+    .model-photo{position:absolute;bottom:0;height:92vh;width:auto;mix-blend-mode:screen;filter:contrast(1.05) brightness(0.9);animation:fadeUp 1.4s 1.2s both;}
+    .model-photo-1{right:6%;}
+    .model-photo-2{right:26%;opacity:0.4;filter:contrast(1.0) brightness(0.65) blur(0.5px);}
+
+    .spark{
+      position:absolute;border-radius:50%;background:var(--gold);opacity:0;
+      animation:sparkDrift var(--sd) var(--sdelay) ease-in infinite;
     }
 
-    .hero-loc {
-      font-size: 10px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 1.5rem;
-      opacity: 0;
-      animation: up 1s 0.3s forwards;
+    /* HERO TEXT */
+    .hero-content{position:relative;z-index:10;}
+
+    .hero-loc{
+      font-family:'Crimson Pro',serif;font-size:11px;
+      letter-spacing:0.28em;text-transform:uppercase;
+      color:var(--gold);opacity:0;margin-bottom:1.5rem;
+      animation:fadeUp 1.2s 0.4s forwards;
     }
 
-    .hero h1 {
-      font-family: 'Cormorant', serif;
-      font-weight: 300;
-      font-size: clamp(5rem, 15vw, 15rem);
-      line-height: 0.9;
-      letter-spacing: -0.02em;
-      color: var(--paper);
-      opacity: 0;
-      animation: up 1s 0.5s forwards;
+    .hero h1{
+      font-family:'EB Garamond',serif;font-weight:400;
+      font-size:clamp(5rem,15vw,15rem);line-height:0.88;
+      letter-spacing:-0.02em;color:var(--paper);
+      opacity:0;animation:fadeUp 1.2s 0.6s forwards;
+    }
+    .hero h1 em{font-style:italic;color:var(--gold);opacity:0.75;}
+
+    .hero-rule{
+      width:100%;height:1px;
+      background:linear-gradient(90deg,var(--gold) 0%,var(--steel) 40%,transparent 100%);
+      margin:2.5rem 0;opacity:0;animation:fadeUp 1.2s 0.8s forwards;
     }
 
-    .hero h1 em { font-style: italic; }
-
-    .hero-rule {
-      width: 100%;
-      height: 1px;
-      background: var(--rule);
-      margin: 2.5rem 0;
-      opacity: 0;
-      animation: up 1s 0.7s forwards;
+    .hero-bottom{
+      display:flex;justify-content:flex-end;
+      opacity:0;animation:fadeUp 1.2s 1s forwards;
     }
 
-    .hero-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      opacity: 0;
-      animation: up 1s 0.9s forwards;
+    .hero-disciplines{
+      text-align:right;font-family:'Spectral',serif;font-style:italic;
+      font-size:13px;letter-spacing:0.08em;color:var(--muted);line-height:2.4;
     }
 
-    .hero-desc {
-      font-family: 'Cormorant', serif;
-      font-style: italic;
-      font-size: 1.1rem;
-      color: var(--muted);
-      max-width: 400px;
-      line-height: 1.65;
+    /* TICKER */
+    .ticker{
+      overflow:hidden;border-bottom:1px solid var(--rule);
+      padding:0.8rem 0;white-space:nowrap;position:relative;
+    }
+    .ticker::before,.ticker::after{
+      content:'';position:absolute;top:0;bottom:0;width:80px;z-index:1;
+    }
+    .ticker::before{left:0;background:linear-gradient(90deg,var(--bg),transparent);}
+    .ticker::after{right:0;background:linear-gradient(-90deg,var(--bg),transparent);}
+    .ticker-track{
+      display:inline-block;animation:slide 38s linear infinite;
+      font-family:'Crimson Pro',serif;font-size:11px;
+      letter-spacing:0.2em;text-transform:uppercase;color:var(--dim);
+    }
+    .ticker-track span{margin:0 2.5rem;}
+    .ticker-track .sep{color:var(--gold);opacity:0.25;letter-spacing:0;}
+
+    /* SECTIONS */
+    section{border-bottom:1px solid var(--rule);position:relative;}
+    section::before{
+      content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+      width:50%;height:1px;
+      background:linear-gradient(90deg,transparent,var(--gold),transparent);
+      opacity:0.2;
     }
 
-    .hero-disciplines {
-      text-align: right;
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--dim);
-      line-height: 2.4;
+    .section-header{
+      display:grid;grid-template-columns:3rem 1fr auto;
+      align-items:baseline;gap:2rem;
+      padding:3rem 3rem 2.5rem;border-bottom:1px solid var(--rule);
+    }
+    .section-index{font-family:'Crimson Pro',serif;font-size:11px;letter-spacing:0.15em;color:var(--gold);opacity:0.35;}
+    .section-title{
+      font-family:'EB Garamond',serif;font-weight:400;
+      font-size:clamp(2.5rem,5vw,4.5rem);letter-spacing:0.02em;line-height:1;color:var(--paper);
+    }
+    .section-note{
+      font-family:'Spectral',serif;font-style:italic;
+      font-size:12px;letter-spacing:0.1em;color:var(--dim);
+      align-self:flex-end;padding-bottom:8px;
     }
 
-    .ticker {
-      overflow: hidden;
-      border-bottom: 1px solid var(--rule);
-      padding: 0.85rem 0;
-      white-space: nowrap;
+    .entries{padding:0 3rem;}
+    .entry{
+      display:grid;grid-template-columns:160px 1fr;
+      gap:2.5rem;padding:2.75rem 0;
+      border-bottom:1px solid var(--rule);transition:background 0.5s;
     }
+    .entry:hover{background:linear-gradient(90deg,transparent,var(--glow),transparent);}
+    .entry:last-child{border-bottom:none;}
+    .entry-meta{padding-top:2px;}
+    .entry-label{font-family:'Crimson Pro',serif;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--dim);line-height:2;}
+    .entry-role{font-family:'Spectral',serif;font-style:italic;font-size:14px;color:var(--gold);opacity:0.55;margin-top:2px;}
+    .entry-title{font-family:'EB Garamond',serif;font-weight:400;font-size:1.85rem;letter-spacing:0.01em;color:var(--paper);margin-bottom:0.5rem;line-height:1.1;}
+    .entry-body{font-family:'Crimson Pro',serif;font-size:14px;color:var(--muted);line-height:1.9;max-width:560px;}
 
-    .ticker-track {
-      display: inline-block;
-      animation: slide 32s linear infinite;
-      font-size: 10px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--dim);
+    .reel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.5rem;}
+    .reel-wrap{min-width:0;}
+    .reel-wrap .instagram-media{min-width:0!important;width:100%!important;max-width:100%!important;}
+
+    .embed-wrap{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;margin-top:1.25rem;}
+    .embed-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;}
+
+    /* CONTACT */
+    .contact-wrap{position:relative;padding:6rem 3rem 5rem;overflow:hidden;}
+    .contact-wrap::before{
+      content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+      width:1px;height:55%;background:linear-gradient(to top,var(--gold),transparent);opacity:0.15;
     }
+    .contact-pre{font-family:'Crimson Pro',serif;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);opacity:0.45;margin-bottom:1rem;}
+    .contact-title{font-family:'EB Garamond',serif;font-weight:400;font-size:clamp(3.5rem,9vw,9rem);line-height:0.92;letter-spacing:-0.01em;color:var(--paper);margin-bottom:3rem;}
+    .contact-title em{font-style:italic;color:var(--gold);opacity:0.65;}
+    .contact-links{display:flex;flex-direction:column;gap:0.45rem;}
+    .contact-links a{font-family:'Crimson Pro',serif;font-size:14px;letter-spacing:0.1em;color:var(--muted);transition:color 0.3s,letter-spacing 0.3s;}
+    .contact-links a:hover{color:var(--gold);letter-spacing:0.18em;}
 
-    .ticker-track span { margin: 0 2.5rem; }
-    .ticker-track .sep { color: var(--rule); letter-spacing: 0; }
+    footer{padding:1.5rem 3rem;display:flex;justify-content:space-between;font-family:'Crimson Pro',serif;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--dim);border-top:1px solid var(--rule);}
 
-    section { border-bottom: 1px solid var(--rule); }
+    .reveal{opacity:0;transform:translateY(20px);transition:opacity 0.9s ease,transform 0.9s ease;}
+    .reveal.visible{opacity:1;transform:translateY(0);}
 
-    .section-header {
-      display: grid;
-      grid-template-columns: 3rem 1fr auto;
-      align-items: baseline;
-      gap: 2rem;
-      padding: 3rem 3rem 2.5rem;
-      border-bottom: 1px solid var(--rule);
+    .scanline{position:fixed;top:0;left:0;right:0;height:2px;z-index:1500;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(100,130,180,0.04),transparent);animation:scanline 12s linear infinite;}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes slide{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+    @keyframes scanline{0%{transform:translateY(-100%);}100%{transform:translateY(100vh);}}
+    @keyframes sparkDrift{0%{opacity:0;transform:translate(0,0) scale(1);}15%{opacity:0.7;}85%{opacity:0.2;}100%{opacity:0;transform:translate(var(--stx),var(--sty)) scale(0.3);}}
+    @keyframes ringRot{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+    @keyframes ringRotRev{from{transform:rotate(0deg);}to{transform:rotate(-360deg);}}
+
+    @media(max-width:640px){
+      nav{padding:1.5rem;}nav ul{display:none;}
+      .hero{padding:4rem 1.5rem 3rem;}
+      .hero-bottom{justify-content:flex-start;}.hero-disciplines{text-align:left;}
+      .section-header{grid-template-columns:1fr;padding:2rem 1.5rem 1.5rem;}
+      .section-index,.section-note{display:none;}
+      .entries{padding:0 1.5rem;}
+      .entry{grid-template-columns:1fr;gap:0.5rem;}
+      .reel-grid{grid-template-columns:1fr;}
+      .contact-wrap{padding:4rem 1.5rem 3rem;}
+      footer{padding:1.5rem;}
     }
-
-    .section-index {
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      color: var(--dim);
-    }
-
-    .section-title {
-      font-family: 'Cormorant', serif;
-      font-weight: 300;
-      font-size: clamp(2.5rem, 5vw, 4.5rem);
-      letter-spacing: 0.02em;
-      line-height: 1;
-      color: var(--paper);
-    }
-
-    .section-note {
-      font-size: 10px;
-      letter-spacing: 0.12em;
-      color: var(--dim);
-      align-self: flex-end;
-      padding-bottom: 6px;
-    }
-
-    .entries { padding: 0 3rem; }
-
-    .entry {
-      display: grid;
-      grid-template-columns: 160px 1fr;
-      gap: 2.5rem;
-      padding: 2.75rem 0;
-      border-bottom: 1px solid var(--rule);
-    }
-
-    .entry:last-child { border-bottom: none; }
-
-    .entry-meta { padding-top: 2px; }
-
-    .entry-label {
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--dim);
-      line-height: 2;
-    }
-
-    .entry-role {
-      font-family: 'Cormorant', serif;
-      font-style: italic;
-      font-size: 0.95rem;
-      color: var(--muted);
-      margin-top: 2px;
-    }
-
-    .entry-title {
-      font-family: 'Cormorant', serif;
-      font-weight: 400;
-      font-size: 1.8rem;
-      letter-spacing: 0.02em;
-      color: var(--paper);
-      margin-bottom: 0.6rem;
-      line-height: 1.1;
-    }
-
-    .entry-body {
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.9;
-      max-width: 560px;
-    }
-
-    .reel-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-      margin-top: 1.5rem;
-    }
-
-    .reel-wrap {
-      min-width: 0;
-    }
-
-    .reel-wrap .instagram-media {
-      min-width: 0 !important;
-      width: 100% !important;
-      max-width: 100% !important;
-    }
-
-    @media (max-width: 900px) {
-      .reel-grid { grid-template-columns: 1fr; }
-    }
-
-    .embed-wrap {
-      position: relative;
-      padding-bottom: 56.25%;
-      height: 0;
-      overflow: hidden;
-      margin-top: 1.25rem;
-    }
-
-    .embed-wrap iframe {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      border: none;
-    }
-
-    .contact-wrap {
-      padding: 6rem 3rem 5rem;
-    }
-
-    .contact-pre {
-      font-size: 10px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--dim);
-      margin-bottom: 1rem;
-    }
-
-    .contact-title {
-      font-family: 'Cormorant', serif;
-      font-weight: 300;
-      font-size: clamp(3.5rem, 9vw, 9rem);
-      line-height: 0.92;
-      letter-spacing: -0.01em;
-      color: var(--paper);
-      margin-bottom: 3rem;
-    }
-
-    .contact-title em { font-style: italic; }
-
-    .contact-links {
-      display: flex;
-      flex-direction: column;
-      gap: 0.45rem;
-    }
-
-    .contact-links a {
-      font-size: 12px;
-      letter-spacing: 0.1em;
-      color: var(--muted);
-      transition: color 0.25s;
-    }
-
-    .contact-links a:hover { color: var(--paper); }
-
-    footer {
-      padding: 1.5rem 3rem;
-      display: flex;
-      justify-content: space-between;
-      font-size: 10px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--dim);
-      border-top: 1px solid var(--rule);
-    }
-
-    @keyframes up {
-      from { opacity: 0; transform: translateY(14px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes slide {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
-    }
-
-    @media (max-width: 640px) {
-      nav { padding: 1.5rem; }
-      nav ul { display: none; }
-      .hero { padding: 4rem 1.5rem 3rem; }
-      .hero-bottom { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
-      .hero-disciplines { text-align: left; }
-      .section-header { grid-template-columns: 1fr; padding: 2rem 1.5rem 1.5rem; }
-      .section-index, .section-note { display: none; }
-      .entries { padding: 0 1.5rem; }
-      .entry { grid-template-columns: 1fr; gap: 0.5rem; }
-      .contact-wrap { padding: 4rem 1.5rem 3rem; }
-      footer { padding: 1.5rem; }
-    }
+    @media(max-width:900px){.reel-grid{grid-template-columns:1fr;}}
   </style>
 </head>
 <body>
 
-  <nav>
-    <div class="logo">Cole Pursel</div>
-    <ul>
-      <li><a href="#fashion">Fashion</a></li>
-      <li><a href="#music">Music</a></li>
-      <li><a href="#art">Art</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
+<div class="scanline"></div>
 
-  <div class="hero">
+<nav>
+  <div class="logo">Cole Salix</div>
+  <ul>
+    <li><a href="#fashion">Fashion</a></li>
+    <li><a href="#music">Music</a></li>
+    <li><a href="#art">Art</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="layer-space"></div>
+
+  <div class="layer-rings" id="layerRings">
+    <svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg"
+         style="width:130%;height:130%;opacity:0.22;" preserveAspectRatio="xMidYMid slice">
+      <g transform="translate(500,500)">
+        <g style="animation:ringRot 140s linear infinite;transform-origin:0 0;">
+          <circle r="460" fill="none" stroke="#c8b890" stroke-width="0.4" stroke-dasharray="2 18"/>
+          <circle r="420" fill="none" stroke="#c8b890" stroke-width="0.25" stroke-dasharray="1 30"/>
+          <circle r="380" fill="none" stroke="#8a7a60" stroke-width="0.5" stroke-dasharray="6 10"/>
+        </g>
+        <g style="animation:ringRotRev 90s linear infinite;transform-origin:0 0;">
+          <circle r="340" fill="none" stroke="#c8b890" stroke-width="0.3" stroke-dasharray="3 15"/>
+          <circle r="300" fill="none" stroke="#a09070" stroke-width="0.6" stroke-dasharray="8 6"/>
+          <circle r="260" fill="none" stroke="#c8b890" stroke-width="0.25" stroke-dasharray="2 22"/>
+        </g>
+        <g style="animation:ringRot 60s linear infinite;transform-origin:0 0;">
+          <circle r="220" fill="none" stroke="#8a7a60" stroke-width="0.4" stroke-dasharray="4 12"/>
+          <circle r="180" fill="none" stroke="#c8b890" stroke-width="0.3" stroke-dasharray="1 18"/>
+          <circle r="140" fill="none" stroke="#a09070" stroke-width="0.5" stroke-dasharray="6 8"/>
+        </g>
+        <g opacity="0.4" style="animation:ringRotRev 200s linear infinite;transform-origin:0 0;">
+          <line x1="0" y1="-460" x2="0" y2="460" stroke="#c8b890" stroke-width="0.3"/>
+          <line x1="-460" y1="0" x2="460" y2="0" stroke="#c8b890" stroke-width="0.3"/>
+          <line x1="-325" y1="-325" x2="325" y2="325" stroke="#c8b890" stroke-width="0.2"/>
+          <line x1="325" y1="-325" x2="-325" y2="325" stroke="#c8b890" stroke-width="0.2"/>
+          <line x1="-175" y1="-430" x2="175" y2="430" stroke="#8a7a60" stroke-width="0.15"/>
+          <line x1="175" y1="-430" x2="-175" y2="430" stroke="#8a7a60" stroke-width="0.15"/>
+          <line x1="-430" y1="-175" x2="430" y2="175" stroke="#8a7a60" stroke-width="0.15"/>
+          <line x1="430" y1="-175" x2="-430" y2="175" stroke="#8a7a60" stroke-width="0.15"/>
+        </g>
+        <g style="animation:ringRot 180s linear infinite;transform-origin:0 0;">
+          <circle r="2" cx="0" cy="-460" fill="#c8b890"/>
+          <circle r="2" cx="0" cy="460" fill="#c8b890"/>
+          <circle r="2" cx="-460" cy="0" fill="#c8b890"/>
+          <circle r="2" cx="460" cy="0" fill="#c8b890"/>
+          <circle r="1.5" cx="325" cy="-325" fill="#8a7a60"/>
+          <circle r="1.5" cx="-325" cy="-325" fill="#8a7a60"/>
+          <circle r="1.5" cx="325" cy="325" fill="#8a7a60"/>
+          <circle r="1.5" cx="-325" cy="325" fill="#8a7a60"/>
+        </g>
+        <g opacity="0.6">
+          <circle r="1" cx="180" cy="-280" fill="#c8b890"/>
+          <circle r="0.8" cx="240" cy="-210" fill="#c8b890"/>
+          <circle r="1.2" cx="-150" cy="-320" fill="#c8b890"/>
+          <circle r="0.7" cx="-260" cy="180" fill="#c8b890"/>
+          <circle r="1" cx="310" cy="140" fill="#c8b890"/>
+          <circle r="0.8" cx="-180" cy="290" fill="#c8b890"/>
+          <circle r="1.1" cx="120" cy="360" fill="#c8b890"/>
+          <circle r="0.6" cx="-340" cy="-120" fill="#c8b890"/>
+          <line x1="180" y1="-280" x2="240" y2="-210" stroke="#c8b890" stroke-width="0.3" opacity="0.4"/>
+          <line x1="240" y1="-210" x2="-150" y2="-320" stroke="#c8b890" stroke-width="0.3" opacity="0.3"/>
+          <line x1="310" y1="140" x2="120" y2="360" stroke="#c8b890" stroke-width="0.3" opacity="0.35"/>
+        </g>
+        <g style="animation:ringRotRev 45s linear infinite;transform-origin:0 0;">
+          <circle r="80" fill="none" stroke="#c8b890" stroke-width="0.8" stroke-dasharray="4 6"/>
+          <circle r="50" fill="none" stroke="#a09070" stroke-width="0.5"/>
+          <circle r="20" fill="none" stroke="#c8b890" stroke-width="1"/>
+          <line x1="-80" y1="0" x2="80" y2="0" stroke="#c8b890" stroke-width="0.5"/>
+          <line x1="0" y1="-80" x2="0" y2="80" stroke="#c8b890" stroke-width="0.5"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+
+  <div class="layer-wires" id="layerWires">
+    <canvas id="cableCanvas" style="position:absolute;inset:0;width:100%;height:100%;"></canvas>
+  </div>
+
+  <div class="layer-models">
+    <img class="model-photo model-photo-2" src="model2.png" alt="">
+    <img class="model-photo model-photo-1" src="model1.png" alt="">
+  </div>
+
+  <div class="layer-particles" id="layerParticles"></div>
+
+  <div class="hero-content">
     <div class="hero-loc">Los Angeles, California</div>
     <h1>Cole<br><em>Pursel</em></h1>
     <div class="hero-rule"></div>
     <div class="hero-bottom">
-      <p class="hero-desc">Fashion. Music. Art. Events.<br>I don't follow trends — I make them.</p>
       <div class="hero-disciplines">
-        Designer<br>
-        Cut &amp; Sew<br>
-        DJ / Producer<br>
-        Event Director<br>
-        Visual Artist<br>
-        Model
+        Designer<br>Cut &amp; Sew<br>DJ / Producer<br>Event Director<br>Visual Artist<br>Model
       </div>
     </div>
   </div>
+</div>
 
-  <div class="ticker">
-    <div class="ticker-track">
-      <span>Siberia Hills</span><span class="sep">/</span>
-      <span>RPL</span><span class="sep">/</span>
-      <span>Coin Laundry Mfg</span><span class="sep">/</span>
-      <span>ditch.la</span><span class="sep">/</span>
-      <span>AJobInterview</span><span class="sep">/</span>
-      <span>Single Mothers</span><span class="sep">/</span>
-      <span>syege</span><span class="sep">/</span>
-      <span>vawnupton</span><span class="sep">/</span>
-      <span>hlywrk</span><span class="sep">/</span>
-      <span>Siberia Hills</span><span class="sep">/</span>
-      <span>RPL</span><span class="sep">/</span>
-      <span>Coin Laundry Mfg</span><span class="sep">/</span>
-      <span>ditch.la</span><span class="sep">/</span>
-      <span>AJobInterview</span><span class="sep">/</span>
-      <span>Single Mothers</span><span class="sep">/</span>
-      <span>syege</span><span class="sep">/</span>
-      <span>vawnupton</span><span class="sep">/</span>
-      <span>hlywrk</span><span class="sep">/</span>
+<div class="ticker">
+  <div class="ticker-track">
+    <span>Siberia Hills</span><span class="sep">✦</span>
+    <span>RPL</span><span class="sep">✦</span>
+    <span>Coin Laundry Mfg</span><span class="sep">✦</span>
+    <span>ditch.la</span><span class="sep">✦</span>
+    <span>AJobInterview</span><span class="sep">✦</span>
+    <span>Single Mothers</span><span class="sep">✦</span>
+    <span>syege</span><span class="sep">✦</span>
+    <span>vawnupton</span><span class="sep">✦</span>
+    <span>hlywrk</span><span class="sep">✦</span>
+    <span>Siberia Hills</span><span class="sep">✦</span>
+    <span>RPL</span><span class="sep">✦</span>
+    <span>Coin Laundry Mfg</span><span class="sep">✦</span>
+    <span>ditch.la</span><span class="sep">✦</span>
+    <span>AJobInterview</span><span class="sep">✦</span>
+    <span>Single Mothers</span><span class="sep">✦</span>
+    <span>syege</span><span class="sep">✦</span>
+    <span>vawnupton</span><span class="sep">✦</span>
+    <span>hlywrk</span><span class="sep">✦</span>
+  </div>
+</div>
+
+<!-- FASHION -->
+<section id="fashion">
+  <div class="section-header reveal">
+    <div class="section-index">01</div>
+    <div class="section-title">Fashion</div>
+    <div class="section-note">2020 — Present</div>
+  </div>
+  <div class="entries">
+    <div class="entry reveal">
+      <div class="entry-meta"><div class="entry-label">—</div><div class="entry-role">Model</div></div>
+      <div><div class="entry-title">Runway &amp; Editorial</div><div class="entry-body">Modeled for vawnupton, hlywrk, jacov, and other LA designers. Runway, product promotion, on-camera work. A presence in the underground LA fashion circuit.</div></div>
+    </div>
+    <div class="entry reveal">
+      <div class="entry-meta"><div class="entry-label">Recent</div><div class="entry-role">Personal Assistant</div></div>
+      <div><div class="entry-title">Siberia Hills — Daf</div><div class="entry-body">Personal assistant to Daf, working within the Siberia Hills world. Immersed in one of LA's most distinct and uncompromising creative operations.</div></div>
+    </div>
+    <div class="entry reveal">
+      <div class="entry-meta"><div class="entry-label">—</div><div class="entry-role">Assistant</div></div>
+      <div>
+        <div class="entry-title">RPL — Roy Public Label</div>
+        <div class="entry-body">Assisted recluseroy and Samuel David. Learned construction and design under roy's brand after an apprenticeship at ditch.la.</div>
+        <div class="entry-body" style="margin-top:1rem;"><em style="font-family:'Spectral',serif;color:var(--gold);opacity:0.7;font-size:15px;">syege — my personal brand</em><br>Fully cut and sewn garments: pants, shirts, shorts, skirts, gloves, trench coats, backpacks.</div>
+      </div>
+    </div>
+    <div class="entry reveal">
+      <div class="entry-meta"><div class="entry-label">—</div><div class="entry-role">Assistant</div></div>
+      <div><div class="entry-title">Coin Laundry Mfg</div><div class="entry-body">Worked under Kel Saborouh. Deepened manufacturing knowledge and understanding of the production side of independent fashion.</div></div>
+    </div>
+    <div class="entry reveal">
+      <div class="entry-meta"><div class="entry-label">—</div><div class="entry-role">Custom Work</div></div>
+      <div><div class="entry-title">Artists &amp; Collaborators</div><div class="entry-body">Custom garments and accessories for underground music artists. Custom shoes for Perto. Custom severed limb keychains for bbpue and Perto. Toured Eric Payne's studio — studied shoemaking from the ground up.</div></div>
     </div>
   </div>
+</section>
 
-  <section id="fashion">
-    <div class="section-header">
-      <div class="section-index">01</div>
-      <div class="section-title">Fashion</div>
-      <div class="section-note">2020 — Present</div>
+<!-- MUSIC -->
+<section id="music">
+  <div class="section-header reveal">
+    <div class="section-index">02</div>
+    <div class="section-title">Music</div>
+    <div class="section-note">Active</div>
+  </div>
+  <div class="entries">
+    <div class="entry reveal">
+      <div class="entry-meta"><div class="entry-label">Band</div><div class="entry-role">Producer / Member</div></div>
+      <div><div class="entry-title">Single Mothers</div><div class="entry-body">Electronic music band. Co-writing and producing original material. Solo work released under the alias syege.</div></div>
     </div>
-    <div class="entries">
-
-      <div class="entry">
-        <div class="entry-meta">
-          <div class="entry-label">Recent</div>
-          <div class="entry-role">Personal Assistant</div>
-        </div>
-        <div>
-          <div class="entry-title">Siberia Hills — Daf</div>
-          <div class="entry-body">Personal assistant to Daf, working within the Siberia Hills world. Immersed in one of LA's most distinct and uncompromising creative operations.</div>
-        </div>
-      </div>
-
-      <div class="entry">
-        <div class="entry-meta">
-          <div class="entry-label">Recent</div>
-          <div class="entry-role">Personal Assistant</div>
-        </div>
-        <div>
-          <div class="entry-title">Rob Reynolds</div>
-          <div class="entry-body">Personal assistant to Rob Reynolds. Hands-on experience operating at the intersection of fashion, culture, and creative direction in LA.</div>
-        </div>
-      </div>
-
-      <div class="entry">
-        <div class="entry-meta">
-          <div class="entry-label">—</div>
-          <div class="entry-role">Assistant</div>
-        </div>
-        <div>
-          <div class="entry-title">RPL — Roy Public Label</div>
-          <div class="entry-body">Assisted recluseroy and Samuel David. Learned construction and design under roy's brand after an apprenticeship at ditch.la. Fully cut and sewn garments: pants, shirts, shorts, skirts, gloves, trench coats, backpacks.</div>
-        </div>
-      </div>
-
-      <div class="entry">
-        <div class="entry-meta">
-          <div class="entry-label">—</div>
-          <div class="entry-role">Assistant</div>
-        </div>
-        <div>
-          <div class="entry-title">Coin Laundry Mfg</div>
-          <div class="entry-body">Worked under Kel Saborouh. Deepened manufacturing knowledge and understanding of the production side of independent fashion.</div>
-        </div>
-      </div>
-
-      <div class="entry">
-        <div class="entry-meta">
-          <div class="entry-label">—</div>
-          <div class="entry-role">Custom Work</div>
-        </div>
-        <div>
-          <div class="entry-title">Artists &amp; Collaborators</div>
-          <div class="entry-body">Custom garments and accessories for underground music artists. Custom shoes for Perto. Custom severed limb keychains for bbpue and Perto. Toured Eric Payne's studio — studied shoemaking from the ground up.</div>
-        </div>
-      </div>
-
-      <div class="entry">
-        <div class="entry-meta">
-          <div class="entry-label">—</div>
-          <div class="entry-role">Model</div>
-        </div>
-        <div>
-          <div class="entry-title">Runway &amp; Editorial</div>
-          <div class="entry-body">Modeled for vawnupton, hlywrk, jacov, and other LA designers. Runway, product promotion, on-camera work. A presence in the underground LA fashion circuit.</div>
-        </div>
-      </div>
-
+    <div class="entry reveal">
+      <div class="entry-meta"><div class="entry-label">Live</div><div class="entry-role">DJ / Sound</div></div>
+      <div><div class="entry-title">Live Sets &amp; Sound Systems</div><div class="entry-body">DJ sets at shows across LA. Full sound system setup and operation. Fluent in Ableton Live, FL Studio, and live performance hardware.</div></div>
     </div>
-  </section>
-
-  <section id="music">
-    <div class="section-header">
-      <div class="section-index">02</div>
-      <div class="section-title">Music</div>
-      <div class="section-note">Active</div>
-    </div>
-    <div class="entries">
-
-      <div class="entry">
-        <div class="entry-meta">
-          <div class="entry-label">Band</div>
-          <div class="entry-role">Producer / Member</div>
+    <div class="entry reveal">
+      <div class="entry-meta"><div class="entry-label">Ongoing</div><div class="entry-role">Founder</div></div>
+      <div>
+        <div class="entry-title">AJobInterview</div>
+        <div class="entry-body">My one big goal in life is to create memories and life changing experiences for people. I've learned how to host events and manage teams to throw parties, shows, and raves.</div>
+        <div class="reel-grid">
+          <div class="reel-wrap"><blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DLVitdeh6kZ/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14"></blockquote></div>
+          <div class="reel-wrap"><blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DQfCMgDEpP6/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14"></blockquote></div>
+          <div class="reel-wrap"><blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DTd2G0Gkpxw/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14"></blockquote></div>
         </div>
-        <div>
-          <div class="entry-title">Single Mothers</div>
-          <div class="entry-body">Electronic music band. Co-writing and producing original material. Solo work released under the alias syege.</div>
-          <!-- <div class="embed-wrap"><iframe src="https://player.vimeo.com/video/VIDEOID" allowfullscreen></iframe></div> -->
-        </div>
-      </div>
-
-      <div class="entry">
-        <div class="entry-meta">
-          <div class="entry-label">Live</div>
-          <div class="entry-role">DJ / Sound</div>
-        </div>
-        <div>
-          <div class="entry-title">Live Sets &amp; Sound Systems</div>
-          <div class="entry-body">DJ sets at shows across LA. Full sound system setup and operation. Fluent in Ableton Live, FL Studio, and live performance hardware.</div>
-        </div>
-      </div>
-
-      <div class="entry">
-        <div class="entry-meta">
-          <div class="entry-label">Ongoing</div>
-          <div class="entry-role">Founder</div>
-        </div>
-        <div>
-          <div class="entry-title">AJobInterview</div>
-          <div class="entry-body">Started as a question: how many people can I bring together? Grew from 30 people to a recurring event series — house parties, shows, live music. Formerly Crashout Weekend. The long-term vision is proper festivals and life-changing experiences at scale.</div>
-          <div class="reel-grid">
-            <div class="reel-wrap">
-              <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DLVitdeh6kZ/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14"></blockquote>
-            </div>
-            <div class="reel-wrap">
-              <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DQfCMgDEpP6/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14"></blockquote>
-            </div>
-            <div class="reel-wrap">
-              <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DTd2G0Gkpxw/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14"></blockquote>
-            </div>
-          </div>
-          <script async src="//www.instagram.com/embed.js"></script>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <section id="art">
-    <div class="section-header">
-      <div class="section-index">03</div>
-      <div class="section-title">Art</div>
-      <div class="section-note">Always</div>
-    </div>
-    <div class="entries">
-
-      <div class="entry">
-        <div class="entry-meta">
-          <div class="entry-label">Visual</div>
-          <div class="entry-role">Multi-medium</div>
-        </div>
-        <div>
-          <div class="entry-title">Drawing, Painting, Sculpture, Graffiti</div>
-          <div class="entry-body">Making art since the first memory. Every wall covered. Drawing, sketching, painting, sculpting, graffiti. Designed and released printed flags. Adobe Illustrator, Photoshop, Premiere Pro.</div>
-        </div>
-      </div>
-
-      <div class="entry">
-        <div class="entry-meta">
-          <div class="entry-label">Digital</div>
-          <div class="entry-role">Web / Design</div>
-        </div>
-        <div>
-          <div class="entry-title">Web Design</div>
-          <div class="entry-body">Designed and launched websites. Built this one from scratch in a terminal.</div>
-        </div>
-      </div>
-
-      <div class="entry">
-        <div class="entry-meta">
-          <div class="entry-label">—</div>
-          <div class="entry-role">Taste</div>
-        </div>
-        <div>
-          <div class="entry-title">Leading, Not Following</div>
-          <div class="entry-body">Growing nails before it was a thing. Bullet holes in hats. Thumb holes cut into sleeves. The ideas move outward. Looking for a project bigger than any one person — the kind that changes people's lives.</div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <section id="contact">
-    <div class="contact-wrap">
-      <div class="contact-pre">Get in touch</div>
-      <div class="contact-title">Let's<br><em>work.</em></div>
-      <div class="contact-links">
-        <a href="mailto:your@email.com">your@email.com</a>
-        <a href="https://instagram.com/yourhandle" target="_blank">Instagram ↗</a>
+        <script async src="//www.instagram.com/embed.js"></script>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <footer>
-    <span>Cole Pursel</span>
-    <span>Los Angeles — © 2026</span>
-  </footer>
+<!-- ART -->
+<section id="art">
+  <div class="section-header reveal">
+    <div class="section-index">03</div>
+    <div class="section-title">Art</div>
+    <div class="section-note">Always</div>
+  </div>
+  <div class="entries">
+    <div class="entry reveal">
+      <div class="entry-meta"><div class="entry-label">Recent</div><div class="entry-role">Personal Assistant</div></div>
+      <div><div class="entry-title">Rob Reynolds</div><div class="entry-body">Assistant of Rob Reynolds, handling photo editing, video editing, and applying my skills wherever needed.</div></div>
+    </div>
+    <div class="entry reveal">
+      <div class="entry-meta"><div class="entry-label">Visual</div><div class="entry-role">Multi-medium</div></div>
+      <div><div class="entry-title">Drawing, Painting, Sculpture, Typology</div><div class="entry-body">I have always made art. My bedroom walls are covered in drawings. I'm equipped with the skills of Adobe Illustrator, Photoshop, and Premiere Pro.</div></div>
+    </div>
+    <div class="entry reveal">
+      <div class="entry-meta"><div class="entry-label">Digital</div><div class="entry-role">Web / Design</div></div>
+      <div><div class="entry-title">Web Design</div><div class="entry-body">Designed and launched websites. Built this one from scratch in a terminal.</div></div>
+    </div>
+  </div>
+</section>
 
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-wrap reveal">
+    <div class="contact-links">
+      <a href="mailto:colesalix@icloud.com">colesalix@icloud.com</a>
+      <a href="https://instagram.com/sy3ge" target="_blank">@sy3ge ↗</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Cole Salix</span>
+  <span>Los Angeles — © 2026</span>
+</footer>
+
+<script>
+  // FIBER OPTIC CABLES
+  const canvas = document.getElementById('cableCanvas');
+  const ctx = canvas.getContext('2d');
+  function resizeCanvas(){ canvas.width=canvas.offsetWidth; canvas.height=canvas.offsetHeight; }
+  resizeCanvas(); window.addEventListener('resize', resizeCanvas);
+
+  const cableDefs=[
+    {pts:[[-0.02,0.55],[0.18,0.32],[0.38,0.48],[0.58,0.28]],color:'blue',speed:0.38,width:1.4},
+    {pts:[[-0.02,0.68],[0.12,0.58],[0.28,0.64],[0.52,0.52]],color:'blue',speed:0.28,width:0.9},
+    {pts:[[-0.02,0.42],[0.22,0.62],[0.40,0.38],[0.62,0.55]],color:'blue',speed:0.52,width:1.1},
+    {pts:[[1.02,0.35],[0.82,0.48],[0.72,0.38],[0.55,0.52]],color:'blue',speed:0.44,width:1.3},
+    {pts:[[1.02,0.72],[0.88,0.60],[0.76,0.68],[0.58,0.58]],color:'blue',speed:0.33,width:0.8},
+    {pts:[[1.02,0.48],[0.78,0.30],[0.62,0.44],[0.44,0.32]],color:'gold',speed:0.24,width:0.9},
+    {pts:[[0.20,-0.02],[0.35,0.18],[0.48,0.08],[0.65,0.22]],color:'gold',speed:0.31,width:0.7},
+    {pts:[[0.60,-0.02],[0.68,0.14],[0.72,0.08],[0.82,0.20]],color:'blue',speed:0.45,width:0.8},
+    {pts:[[0.15,1.02],[0.28,0.82],[0.42,0.90],[0.60,0.76]],color:'blue',speed:0.36,width:0.9},
+    {pts:[[0.55,1.02],[0.62,0.88],[0.70,0.94],[0.85,0.80]],color:'gold',speed:0.28,width:0.7},
+    {pts:[[-0.02,0.30],[0.30,0.55],[0.50,0.22],[0.75,0.45]],color:'blue',speed:0.60,width:0.6},
+    {pts:[[1.02,0.60],[0.70,0.42],[0.50,0.60],[0.25,0.40]],color:'blue',speed:0.55,width:0.5},
+  ];
+
+  const cables=cableDefs.map(d=>({...d,pulses:Array.from({length:3},(_,j)=>({t:(j/3)+Math.random()*0.2,speed:d.speed*(0.8+Math.random()*0.4)}))}));
+
+  function bezierPt(t,p0,p1,p2,p3){const m=1-t;return{x:m*m*m*p0.x+3*m*m*t*p1.x+3*m*t*t*p2.x+t*t*t*p3.x,y:m*m*m*p0.y+3*m*m*t*p1.y+3*m*t*t*p2.y+t*t*t*p3.y};}
+  function gc(type,a){return type==='blue'?`rgba(60,120,220,${a})`:`rgba(180,140,60,${a})`;}
+
+  function drawCables(){
+    const W=canvas.width,H=canvas.height;
+    ctx.clearRect(0,0,W,H);
+    cables.forEach(c=>{
+      const[s,c1,c2,e]=c.pts;
+      const p0={x:s[0]*W,y:s[1]*H},p1={x:c1[0]*W,y:c1[1]*H},p2={x:c2[0]*W,y:c2[1]*H},p3={x:e[0]*W,y:e[1]*H};
+      ctx.beginPath();ctx.moveTo(p0.x,p0.y);ctx.bezierCurveTo(p1.x,p1.y,p2.x,p2.y,p3.x,p3.y);
+      ctx.strokeStyle=gc(c.color,0.06);ctx.lineWidth=c.width*2.5;ctx.lineCap='round';ctx.stroke();
+      ctx.beginPath();ctx.moveTo(p0.x,p0.y);ctx.bezierCurveTo(p1.x,p1.y,p2.x,p2.y,p3.x,p3.y);
+      ctx.strokeStyle=gc(c.color,0.14);ctx.lineWidth=c.width;ctx.stroke();
+      c.pulses.forEach(pulse=>{
+        pulse.t+=pulse.speed*0.004;if(pulse.t>1.12)pulse.t=-0.12;
+        const t=Math.max(0,Math.min(1,pulse.t)),pos=bezierPt(t,p0,p1,p2,p3);
+        const g=ctx.createRadialGradient(pos.x,pos.y,0,pos.x,pos.y,18*c.width);
+        g.addColorStop(0,gc(c.color,0.9));g.addColorStop(0.2,gc(c.color,0.5));g.addColorStop(0.5,gc(c.color,0.15));g.addColorStop(1,gc(c.color,0));
+        ctx.beginPath();ctx.arc(pos.x,pos.y,18*c.width,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();
+        ctx.beginPath();ctx.arc(pos.x,pos.y,c.width*1.4,0,Math.PI*2);
+        ctx.fillStyle=c.color==='blue'?'rgba(180,210,255,0.95)':'rgba(255,220,140,0.95)';ctx.fill();
+        if(t>0.03){const t2=Math.max(0,t-0.04),pos2=bezierPt(t2,p0,p1,p2,p3);
+          const tg=ctx.createLinearGradient(pos2.x,pos2.y,pos.x,pos.y);
+          tg.addColorStop(0,gc(c.color,0));tg.addColorStop(1,gc(c.color,0.5));
+          ctx.beginPath();ctx.moveTo(pos2.x,pos2.y);ctx.lineTo(pos.x,pos.y);
+          ctx.strokeStyle=tg;ctx.lineWidth=c.width*1.8;ctx.stroke();}
+      });
+    });
+    requestAnimationFrame(drawCables);
+  }
+  drawCables();
+
+  // PARALLAX
+  const rings=document.getElementById('layerRings');
+  const wiresEl=document.getElementById('layerWires');
+  const particles=document.getElementById('layerParticles');
+  let mx=0,my=0,pcx=0,pcy=0;
+  window.addEventListener('mousemove',e=>{mx=e.clientX/window.innerWidth-0.5;my=e.clientY/window.innerHeight-0.5;});
+  function lerp(a,b,t){return a+(b-a)*t;}
+  function doParallax(){
+    pcx=lerp(pcx,mx,0.04);pcy=lerp(pcy,my,0.04);
+    rings.style.transform=`translate(${pcx*-22}px,${pcy*-22}px)`;
+    wiresEl.style.transform=`translate(${pcx*14}px,${pcy*14}px)`;
+    particles.style.transform=`translate(${pcx*32}px,${pcy*32}px)`;
+    requestAnimationFrame(doParallax);
+  }
+  doParallax();
+  window.addEventListener('scroll',()=>{rings.style.transform=`translateY(${window.scrollY*0.28}px)`;},{passive:true});
+
+  // SPARKS
+  const pEl=document.getElementById('layerParticles');
+  for(let i=0;i<55;i++){
+    const p=document.createElement('div');p.className='spark';
+    const size=Math.random()*2.2+0.4;
+    p.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;--stx:${(Math.random()-0.5)*140}px;--sty:${-(Math.random()*200+30)}px;--sd:${Math.random()*10+7}s;--sdelay:${Math.random()*14}s;width:${size}px;height:${size}px;`;
+    pEl.appendChild(p);
+  }
+
+  // SCROLL REVEAL
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
+  },{threshold:0.07});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
 </body>
 </html>
