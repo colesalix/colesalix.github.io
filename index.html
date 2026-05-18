@@ -91,10 +91,28 @@
 
     .layer-particles{position:absolute;inset:0;z-index:4;pointer-events:none;will-change:transform;}
 
-    .layer-models{position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden;}
-    .model-photo{position:absolute;bottom:0;height:92vh;width:auto;mix-blend-mode:screen;filter:contrast(1.05) brightness(0.9);animation:fadeUp 1.4s 1.2s both;}
-    .model-photo-1{right:6%;}
-    .model-photo-2{right:26%;opacity:0.4;filter:contrast(1.0) brightness(0.65) blur(0.5px);}
+    /* MODEL PHOTO */
+    .layer-models{
+      position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden;
+    }
+    .model-photo{
+      position:absolute;bottom:0;width:auto;
+      mix-blend-mode:screen;
+      animation:fadeUp 1.6s 1s both;
+      height:96vh;
+      right:-2%;
+      filter:contrast(1.1) brightness(0.95);
+      opacity:0.85;
+    }
+    @media(max-width:768px){
+      .model-photo{
+        height:55vh;
+        right:50%;
+        transform:translateX(50%);
+        opacity:0.35;
+        bottom:0;
+      }
+    }
 
     .spark{
       position:absolute;border-radius:50%;background:var(--gold);opacity:0;
@@ -195,6 +213,17 @@
     .reel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.5rem;}
     .reel-wrap{min-width:0;}
     .reel-wrap .instagram-media{min-width:0!important;width:100%!important;max-width:100%!important;}
+
+    /* entry with inline photo */
+    .entry-with-photo{display:grid;grid-template-columns:1fr 220px;gap:2rem;align-items:start;}
+    .entry-photo{width:100%;border:none;display:block;mix-blend-mode:screen;filter:contrast(1.1) brightness(0.9);opacity:0.82;margin-top:0.5rem;}
+    @media(max-width:768px){
+      .entry-with-photo{grid-template-columns:1fr;}
+      .entry-photo{max-width:180px;margin-top:1rem;}
+    }
+
+    /* spotify embed */
+    .spotify-wrap{margin-top:1.25rem;border-radius:12px;overflow:hidden;}
 
     .embed-wrap{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;margin-top:1.25rem;}
     .embed-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;}
@@ -350,8 +379,7 @@
   </div>
 
   <div class="layer-models">
-    <img class="model-photo model-photo-2" src="model2.png" alt="">
-    <img class="model-photo model-photo-1" src="model1.png" alt="">
+    <img class="model-photo" src="newsubject.png" alt="">
   </div>
 
   <div class="layer-particles" id="layerParticles"></div>
@@ -401,7 +429,13 @@
   <div class="entries">
     <div class="entry reveal">
       <div class="entry-meta"><div class="entry-label">—</div><div class="entry-role">Model</div></div>
-      <div><div class="entry-title">Runway &amp; Editorial</div><div class="entry-body">Modeled for vawnupton, hlywrk, jacov, and other LA designers. Runway, product promotion, on-camera work. A presence in the underground LA fashion circuit.</div></div>
+      <div class="entry-with-photo">
+        <div>
+          <div class="entry-title">Runway &amp; Editorial</div>
+          <div class="entry-body">Modeled for vawnupton, hlywrk, jacov, and other LA designers. Runway, product promotion, on-camera work. A presence in the underground LA fashion circuit.</div>
+        </div>
+        <img class="entry-photo" src="newsubject.png" alt="Cole Salix runway">
+      </div>
     </div>
     <div class="entry reveal">
       <div class="entry-meta"><div class="entry-label">Recent</div><div class="entry-role">Personal Assistant</div></div>
@@ -409,11 +443,7 @@
     </div>
     <div class="entry reveal">
       <div class="entry-meta"><div class="entry-label">—</div><div class="entry-role">Assistant</div></div>
-      <div>
-        <div class="entry-title">RPL — Roy Public Label</div>
-        <div class="entry-body">Assisted recluseroy and Samuel David. Learned construction and design under roy's brand after an apprenticeship at ditch.la.</div>
-        <div class="entry-body" style="margin-top:1rem;"><em style="font-family:'Spectral',serif;color:var(--gold);opacity:0.7;font-size:15px;">syege — my personal brand</em><br>Fully cut and sewn garments: pants, shirts, shorts, skirts, gloves, trench coats, backpacks.</div>
-      </div>
+      <div><div class="entry-title">RPL — Roy Public Label</div><div class="entry-body">Assisted recluseroy and Samuel David. Learned construction and design under roy's brand after an apprenticeship at ditch.la.</div></div>
     </div>
     <div class="entry reveal">
       <div class="entry-meta"><div class="entry-label">—</div><div class="entry-role">Assistant</div></div>
@@ -422,6 +452,21 @@
     <div class="entry reveal">
       <div class="entry-meta"><div class="entry-label">—</div><div class="entry-role">Custom Work</div></div>
       <div><div class="entry-title">Artists &amp; Collaborators</div><div class="entry-body">Custom garments and accessories for underground music artists. Custom shoes for Perto. Custom severed limb keychains for bbpue and Perto. Toured Eric Payne's studio — studied shoemaking from the ground up.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SYEGE -->
+<section id="syege">
+  <div class="section-header reveal">
+    <div class="section-index">—</div>
+    <div class="section-title">Syege</div>
+    <div class="section-note">Personal Brand</div>
+  </div>
+  <div class="entries">
+    <div class="entry reveal">
+      <div class="entry-meta"><div class="entry-label">Cut &amp; Sew</div><div class="entry-role">Designer</div></div>
+      <div><div class="entry-title">Fully Cut &amp; Sewn</div><div class="entry-body">Pants, shirts, shorts, skirts, gloves, trench coats, backpacks. Every piece designed and constructed from scratch.</div></div>
     </div>
   </div>
 </section>
@@ -436,7 +481,13 @@
   <div class="entries">
     <div class="entry reveal">
       <div class="entry-meta"><div class="entry-label">Band</div><div class="entry-role">Producer / Member</div></div>
-      <div><div class="entry-title">Single Mothers</div><div class="entry-body">Electronic music band. Co-writing and producing original material. Solo work released under the alias syege.</div></div>
+      <div>
+        <div class="entry-title">Single Mothers</div>
+        <div class="entry-body">Electronic music band. Co-writing and producing original material. Solo work released under the alias syege.</div>
+        <div class="spotify-wrap">
+          <iframe style="border-radius:12px" src="https://open.spotify.com/embed/artist/2vZ0NW9bYvZhlln27d5UKG?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+      </div>
     </div>
     <div class="entry reveal">
       <div class="entry-meta"><div class="entry-label">Live</div><div class="entry-role">DJ / Sound</div></div>
@@ -446,7 +497,13 @@
       <div class="entry-meta"><div class="entry-label">Ongoing</div><div class="entry-role">Founder</div></div>
       <div>
         <div class="entry-title">AJobInterview</div>
-        <div class="entry-body">My one big goal in life is to create memories and life changing experiences for people. I've learned how to host events and manage teams to throw parties, shows, and raves.</div>
+        <div class="entry-body">My goal in life is to create memories and life changing experiences for people. I've learned how to host events and manage teams to throw parties, shows, renegades, and raves.</div>
+        <div class="reel-grid">
+          <div class="reel-wrap"><blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DLVitdeh6kZ/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14"></blockquote></div>
+          <div class="reel-wrap"><blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DQfCMgDEpP6/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14"></blockquote></div>
+          <div class="reel-wrap"><blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DTd2G0Gkpxw/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14"></blockquote></div>
+        </div>
+        <script async src="//www.instagram.com/embed.js"></script>
         <div class="reel-grid">
           <div class="reel-wrap"><blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DLVitdeh6kZ/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14"></blockquote></div>
           <div class="reel-wrap"><blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DQfCMgDEpP6/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14"></blockquote></div>
