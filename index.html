@@ -85,6 +85,28 @@
       display:flex;align-items:center;justify-content:center;
     }
 
+    /* PHOTO RINGS */
+    .layer-photo-rings{
+      position:absolute;inset:0;z-index:2;pointer-events:none;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .photo-ring{
+      position:absolute;
+      mix-blend-mode:screen;
+      filter:brightness(1.8) contrast(1.4);
+      opacity:0.55;
+    }
+    .photo-ring-outer{
+      width:min(90vw,700px);
+      height:min(90vw,700px);
+      animation:ringRotRev 120s linear infinite;
+    }
+    .photo-ring-inner{
+      width:min(55vw,440px);
+      height:min(55vw,440px);
+      animation:ringRot 90s linear infinite;
+    }
+
     .layer-wires{
       position:absolute;inset:0;z-index:2;pointer-events:none;will-change:transform;
     }
@@ -390,35 +412,35 @@
          style="width:130%;height:130%;opacity:0.28;" preserveAspectRatio="xMidYMid slice">
       <g transform="translate(500,500)">
         <!-- outermost white rings -->
-        <g style="animation:ringRot 160s linear infinite;transform-origin:0 0;">
+        <g style="animation:ringRot 320s linear infinite;transform-origin:0 0;">
           <circle r="490" fill="none" stroke="#ffffff" stroke-width="0.5" stroke-dasharray="3 22"/>
           <circle r="465" fill="none" stroke="#e8e8e8" stroke-width="0.3" stroke-dasharray="1 35"/>
           <circle r="440" fill="none" stroke="#ffffff" stroke-width="0.6" stroke-dasharray="8 12"/>
           <circle r="415" fill="none" stroke="#d8d8d8" stroke-width="0.25" stroke-dasharray="2 28"/>
         </g>
         <!-- outer rings -->
-        <g style="animation:ringRotRev 110s linear infinite;transform-origin:0 0;">
+        <g style="animation:ringRotRev 480s linear infinite;transform-origin:0 0;">
           <circle r="385" fill="none" stroke="#ffffff" stroke-width="0.4" stroke-dasharray="2 18"/>
           <circle r="360" fill="none" stroke="#e0e0e0" stroke-width="0.25" stroke-dasharray="1 30"/>
           <circle r="335" fill="none" stroke="#ffffff" stroke-width="0.55" stroke-dasharray="6 10"/>
           <circle r="310" fill="none" stroke="#cccccc" stroke-width="0.2" stroke-dasharray="3 24"/>
         </g>
         <!-- mid rings -->
-        <g style="animation:ringRot 75s linear infinite;transform-origin:0 0;">
+        <g style="animation:ringRot 1100s linear infinite;transform-origin:0 0;">
           <circle r="280" fill="none" stroke="#ffffff" stroke-width="0.35" stroke-dasharray="3 15"/>
           <circle r="255" fill="none" stroke="#e8e8e8" stroke-width="0.5" stroke-dasharray="7 7"/>
           <circle r="230" fill="none" stroke="#ffffff" stroke-width="0.22" stroke-dasharray="2 22"/>
           <circle r="205" fill="none" stroke="#d0d0d0" stroke-width="0.4" stroke-dasharray="4 14"/>
         </g>
         <!-- inner rings -->
-        <g style="animation:ringRotRev 50s linear infinite;transform-origin:0 0;">
+        <g style="animation:ringRotRev 100s linear infinite;transform-origin:0 0;">
           <circle r="175" fill="none" stroke="#ffffff" stroke-width="0.4" stroke-dasharray="4 12"/>
           <circle r="150" fill="none" stroke="#e0e0e0" stroke-width="0.28" stroke-dasharray="1 18"/>
           <circle r="125" fill="none" stroke="#ffffff" stroke-width="0.5" stroke-dasharray="6 8"/>
           <circle r="100" fill="none" stroke="#cccccc" stroke-width="0.3" stroke-dasharray="2 16"/>
         </g>
         <!-- spokes -->
-        <g opacity="0.3" style="animation:ringRotRev 220s linear infinite;transform-origin:0 0;">
+        <g opacity="0.3" style="animation:ringRotRev 480s linear infinite;transform-origin:0 0;">
           <line x1="0" y1="-490" x2="0" y2="490" stroke="#ffffff" stroke-width="0.3"/>
           <line x1="-490" y1="0" x2="490" y2="0" stroke="#ffffff" stroke-width="0.3"/>
           <line x1="-346" y1="-346" x2="346" y2="346" stroke="#ffffff" stroke-width="0.2"/>
@@ -429,7 +451,7 @@
           <line x1="455" y1="-185" x2="-455" y2="185" stroke="#e0e0e0" stroke-width="0.12"/>
         </g>
         <!-- tick marks -->
-        <g style="animation:ringRot 180s linear infinite;transform-origin:0 0;">
+        <g style="animation:ringRot 360s linear infinite;transform-origin:0 0;">
           <circle r="2.5" cx="0" cy="-490" fill="#ffffff" opacity="0.6"/>
           <circle r="2.5" cx="0" cy="490" fill="#ffffff" opacity="0.6"/>
           <circle r="2.5" cx="-490" cy="0" fill="#ffffff" opacity="0.6"/>
@@ -439,22 +461,8 @@
           <circle r="1.8" cx="346" cy="346" fill="#e0e0e0" opacity="0.5"/>
           <circle r="1.8" cx="-346" cy="346" fill="#e0e0e0" opacity="0.5"/>
         </g>
-        <!-- constellation dots -->
-        <g opacity="0.5">
-          <circle r="1" cx="180" cy="-280" fill="#ffffff"/>
-          <circle r="0.8" cx="240" cy="-210" fill="#ffffff"/>
-          <circle r="1.2" cx="-150" cy="-320" fill="#ffffff"/>
-          <circle r="0.7" cx="-260" cy="180" fill="#ffffff"/>
-          <circle r="1" cx="310" cy="140" fill="#ffffff"/>
-          <circle r="0.8" cx="-180" cy="290" fill="#ffffff"/>
-          <circle r="1.1" cx="120" cy="360" fill="#ffffff"/>
-          <circle r="0.6" cx="-340" cy="-120" fill="#ffffff"/>
-          <line x1="180" y1="-280" x2="240" y2="-210" stroke="#ffffff" stroke-width="0.25" opacity="0.3"/>
-          <line x1="240" y1="-210" x2="-150" y2="-320" stroke="#ffffff" stroke-width="0.25" opacity="0.25"/>
-          <line x1="310" y1="140" x2="120" y2="360" stroke="#ffffff" stroke-width="0.25" opacity="0.28"/>
-        </g>
         <!-- innermost ornament -->
-        <g style="animation:ringRotRev 40s linear infinite;transform-origin:0 0;">
+        <g style="animation:ringRotRev 80s linear infinite;transform-origin:0 0;">
           <circle r="75" fill="none" stroke="#ffffff" stroke-width="0.8" stroke-dasharray="4 6"/>
           <circle r="50" fill="none" stroke="#e0e0e0" stroke-width="0.5"/>
           <circle r="25" fill="none" stroke="#ffffff" stroke-width="1"/>
@@ -467,6 +475,12 @@
 
   <!-- SMOKE -->
   <div id="layerSmoke" style="position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden;"></div>
+
+  <!-- PHOTO RINGS -->
+  <div class="layer-photo-rings">
+    <img class="photo-ring photo-ring-outer" src="outer_ring.png" alt="">
+    <img class="photo-ring photo-ring-inner" src="inner_ring.png" alt="">
+  </div>
 
   <div class="layer-wires" id="layerWires">
     <canvas id="cableCanvas" style="position:absolute;inset:0;width:100%;height:100%;"></canvas>
@@ -524,7 +538,7 @@
           <div class="entry-title">Runway &amp; Editorial</div>
           <div class="entry-body">Modeled for vawnupton, hlywrk, jacov, and other LA designers. Runway, product promotion, on-camera work. A presence in the underground LA fashion circuit.</div>
         </div>
-        <img src="newsubject.png" alt="Cole Salix" style="width:100%;display:block;mix-blend-mode:screen;filter:contrast(1.1) brightness(0.95);opacity:0.88;margin-top:-1rem;">
+        <img src="model.png" alt="Cole Salix" style="width:100%;display:block;mix-blend-mode:screen;filter:contrast(1.1) brightness(0.95);opacity:0.88;margin-top:-1rem;">
       </div>
     </div>
     <div class="entry reveal">
@@ -697,48 +711,154 @@
   resizeCanvas(); window.addEventListener('resize', resizeCanvas);
 
   const cableDefs=[
-    {pts:[[-0.02,0.55],[0.18,0.32],[0.38,0.48],[0.58,0.28]],color:'blue',speed:0.38,width:1.4},
-    {pts:[[-0.02,0.68],[0.12,0.58],[0.28,0.64],[0.52,0.52]],color:'blue',speed:0.28,width:0.9},
-    {pts:[[-0.02,0.42],[0.22,0.62],[0.40,0.38],[0.62,0.55]],color:'blue',speed:0.52,width:1.1},
-    {pts:[[1.02,0.35],[0.82,0.48],[0.72,0.38],[0.55,0.52]],color:'blue',speed:0.44,width:1.3},
-    {pts:[[1.02,0.72],[0.88,0.60],[0.76,0.68],[0.58,0.58]],color:'blue',speed:0.33,width:0.8},
-    {pts:[[1.02,0.48],[0.78,0.30],[0.62,0.44],[0.44,0.32]],color:'gold',speed:0.24,width:0.9},
-    {pts:[[0.20,-0.02],[0.35,0.18],[0.48,0.08],[0.65,0.22]],color:'gold',speed:0.31,width:0.7},
-    {pts:[[0.60,-0.02],[0.68,0.14],[0.72,0.08],[0.82,0.20]],color:'blue',speed:0.45,width:0.8},
-    {pts:[[0.15,1.02],[0.28,0.82],[0.42,0.90],[0.60,0.76]],color:'blue',speed:0.36,width:0.9},
-    {pts:[[0.55,1.02],[0.62,0.88],[0.70,0.94],[0.85,0.80]],color:'gold',speed:0.28,width:0.7},
-    {pts:[[-0.02,0.30],[0.30,0.55],[0.50,0.22],[0.75,0.45]],color:'blue',speed:0.60,width:0.6},
-    {pts:[[1.02,0.60],[0.70,0.42],[0.50,0.60],[0.25,0.40]],color:'blue',speed:0.55,width:0.5},
+    // wide horizontal arcs — bow far above/below center
+    {pts:[[-0.12,0.50],[0.20,-0.18],[0.80,-0.18],[1.12,0.50]],color:'blue',speed:0.32,width:1.5},
+    {pts:[[-0.12,0.50],[0.20,1.18],[0.80,1.18],[1.12,0.50]],color:'blue',speed:0.28,width:1.1},
+    {pts:[[-0.12,0.35],[0.25,-0.25],[0.75,-0.25],[1.12,0.35]],color:'white',speed:0.22,width:0.9},
+    {pts:[[-0.12,0.65],[0.25,1.25],[0.75,1.25],[1.12,0.65]],color:'white',speed:0.26,width:0.8},
+    {pts:[[-0.12,0.70],[0.15,-0.10],[0.85,-0.10],[1.12,0.70]],color:'blue',speed:0.40,width:0.7},
+    {pts:[[-0.12,0.30],[0.30,1.10],[0.70,1.10],[1.12,0.30]],color:'blue',speed:0.35,width:0.6},
+    // wide vertical arcs — bow left/right
+    {pts:[[0.50,-0.12],[-0.20,0.20],[-0.20,0.80],[0.50,1.12]],color:'blue',speed:0.30,width:1.2},
+    {pts:[[0.50,-0.12],[1.20,0.20],[1.20,0.80],[0.50,1.12]],color:'blue',speed:0.25,width:1.0},
+    {pts:[[0.30,-0.12],[-0.28,0.28],[-0.28,0.72],[0.30,1.12]],color:'white',speed:0.20,width:0.8},
+    {pts:[[0.70,-0.12],[1.28,0.28],[1.28,0.72],[0.70,1.12]],color:'white',speed:0.24,width:0.7},
+    // diagonal wide arcs
+    {pts:[[-0.12,0.10],[0.50,-0.30],[1.00,0.40],[1.12,0.90]],color:'blue',speed:0.38,width:0.9},
+    {pts:[[-0.12,0.90],[0.50,1.30],[1.00,0.60],[1.12,0.10]],color:'blue',speed:0.34,width:0.8},
+    {pts:[[-0.12,0.20],[0.40,-0.22],[0.90,0.60],[1.12,0.80]],color:'white',speed:0.28,width:0.7},
+    {pts:[[-0.12,0.80],[0.40,1.22],[0.90,0.40],[1.12,0.20]],color:'white',speed:0.32,width:0.6},
+    // extra random sprinkle — shorter wilder paths
+    {pts:[[0.10,-0.12],[0.60,0.35],[0.20,0.65],[0.80,1.12]],color:'blue',speed:0.55,width:0.5},
+    {pts:[[0.85,-0.12],[0.25,0.30],[0.75,0.70],[0.15,1.12]],color:'white',speed:0.48,width:0.5},
+    {pts:[[-0.12,0.45],[0.55,0.05],[0.45,0.95],[1.12,0.55]],color:'blue',speed:0.60,width:0.4},
   ];
 
-  const cables=cableDefs.map(d=>({...d,pulses:Array.from({length:3},(_,j)=>({t:(j/3)+Math.random()*0.2,speed:d.speed*(0.8+Math.random()*0.4)}))}));
+  const cables=cableDefs.map(d=>({
+    ...d,
+    // live control points — drift from base pts
+    live: d.pts.map(p => ({x:p[0], y:p[1]})),
+    // velocity for each control point (endpoints drift less)
+    vel: d.pts.map((_,i) => ({
+      x: (Math.random()-0.5) * (i===0||i===3 ? 0.00020 : 0.00060),
+      y: (Math.random()-0.5) * (i===0||i===3 ? 0.00028 : 0.00080),
+    })),
+    pulses:Array.from({length:4},(_,j)=>({
+      t:(j/4)+Math.random()*0.2,
+      speed:d.speed*(0.8+Math.random()*0.4),
+      fade:Math.random(),
+      fadeDir:Math.random()>0.5?1:-1,
+      fadeSpeed:Math.random()*0.006+0.002,
+    })),
+    // whole-cable fade
+    lineAlpha: Math.random(),
+    lineFadeDir: Math.random()>0.5?1:-1,
+    lineFadeSpeed: Math.random()*0.0008+0.0002,
+    // which end fades in first (0=start→end, 1=end→start)
+    fadeFrom: Math.random()>0.5?0:1,
+  }));
+
+  // drift limits per point index
+  function driftLimits(i){ return i===0||i===3 ? 0.04 : 0.18; }
+
+  function updateCablePaths(){
+    cables.forEach(c=>{
+      c.live.forEach((pt,i)=>{
+        const base = c.pts[i];
+        pt.x += c.vel[i].x;
+        pt.y += c.vel[i].y;
+        const lim = driftLimits(i);
+        // soft spring back if too far from base
+        const dx = pt.x - base[0], dy = pt.y - base[1];
+        if(Math.abs(dx) > lim){ c.vel[i].x -= dx * 0.00004; }
+        if(Math.abs(dy) > lim){ c.vel[i].y -= dy * 0.00004; }
+        // tiny random nudge
+        c.vel[i].x += (Math.random()-0.5) * 0.000065;
+        c.vel[i].y += (Math.random()-0.5) * 0.000065;
+        // dampen
+        c.vel[i].x *= 0.999;
+        c.vel[i].y *= 0.999;
+      });
+    });
+  }
 
   function bezierPt(t,p0,p1,p2,p3){const m=1-t;return{x:m*m*m*p0.x+3*m*m*t*p1.x+3*m*t*t*p2.x+t*t*t*p3.x,y:m*m*m*p0.y+3*m*m*t*p1.y+3*m*t*t*p2.y+t*t*t*p3.y};}
-  function gc(type,a){return type==='blue'?`rgba(60,120,220,${a})`:`rgba(180,140,60,${a})`;}
+
+  function gc(type,a){
+    if(type==='blue') return `rgba(60,120,220,${a})`;
+    return `rgba(220,218,210,${a})`; // off-white
+  }
+  function gcCore(type,a){
+    if(type==='blue') return `rgba(180,210,255,${a})`;
+    return `rgba(240,238,230,${a})`; // off-white core
+  }
 
   function drawCables(){
+    updateCablePaths();
     const W=canvas.width,H=canvas.height;
     ctx.clearRect(0,0,W,H);
     cables.forEach(c=>{
-      const[s,c1,c2,e]=c.pts;
-      const p0={x:s[0]*W,y:s[1]*H},p1={x:c1[0]*W,y:c1[1]*H},p2={x:c2[0]*W,y:c2[1]*H},p3={x:e[0]*W,y:e[1]*H};
+      const p0={x:c.live[0].x*W,y:c.live[0].y*H};
+      const p1={x:c.live[1].x*W,y:c.live[1].y*H};
+      const p2={x:c.live[2].x*W,y:c.live[2].y*H};
+      const p3={x:c.live[3].x*W,y:c.live[3].y*H};
+
+      // update whole-cable fade
+      c.lineAlpha += c.lineFadeDir * c.lineFadeSpeed;
+      if(c.lineAlpha > 1){ c.lineAlpha=1; c.lineFadeDir=-1; }
+      if(c.lineAlpha < 0){ c.lineAlpha=0; c.lineFadeDir=1;
+        // flip fade direction randomly when fully invisible
+        c.fadeFrom = Math.random()>0.5?0:1;
+      }
+      const la = c.lineAlpha;
+
+      // directional gradient: fade from one end to the other
+      const gx0 = c.fadeFrom===0 ? p0.x : p3.x;
+      const gy0 = c.fadeFrom===0 ? p0.y : p3.y;
+      const gx1 = c.fadeFrom===0 ? p3.x : p0.x;
+      const gy1 = c.fadeFrom===0 ? p3.y : p0.y;
+      const lineGrad = ctx.createLinearGradient(gx0,gy0,gx1,gy1);
+      lineGrad.addColorStop(0,   gc(c.color, 0));
+      lineGrad.addColorStop(0.3, gc(c.color, 0.04*la));
+      lineGrad.addColorStop(0.7, gc(c.color, 0.10*la));
+      lineGrad.addColorStop(1,   gc(c.color, 0.05*la));
+
+      const lineGradGlow = ctx.createLinearGradient(gx0,gy0,gx1,gy1);
+      lineGradGlow.addColorStop(0,   gc(c.color, 0));
+      lineGradGlow.addColorStop(0.3, gc(c.color, 0.02*la));
+      lineGradGlow.addColorStop(0.7, gc(c.color, 0.05*la));
+      lineGradGlow.addColorStop(1,   gc(c.color, 0.02*la));
+
+      // glow line
       ctx.beginPath();ctx.moveTo(p0.x,p0.y);ctx.bezierCurveTo(p1.x,p1.y,p2.x,p2.y,p3.x,p3.y);
-      ctx.strokeStyle=gc(c.color,0.06);ctx.lineWidth=c.width*2.5;ctx.lineCap='round';ctx.stroke();
+      ctx.strokeStyle=lineGradGlow;ctx.lineWidth=c.width*2.5;ctx.lineCap='round';ctx.stroke();
+      // core line
       ctx.beginPath();ctx.moveTo(p0.x,p0.y);ctx.bezierCurveTo(p1.x,p1.y,p2.x,p2.y,p3.x,p3.y);
-      ctx.strokeStyle=gc(c.color,0.14);ctx.lineWidth=c.width;ctx.stroke();
+      ctx.strokeStyle=lineGrad;ctx.lineWidth=c.width;ctx.stroke();
       c.pulses.forEach(pulse=>{
-        pulse.t+=pulse.speed*0.004;if(pulse.t>1.12)pulse.t=-0.12;
+        pulse.t+=pulse.speed*0.001;if(pulse.t>1.12)pulse.t=-0.12;
+        // random fade
+        pulse.fade+=pulse.fadeDir*pulse.fadeSpeed;
+        if(pulse.fade>1){pulse.fade=1;pulse.fadeDir=-1;}
+        if(pulse.fade<0.05){pulse.fade=0.05;pulse.fadeDir=1;}
+        const alpha=pulse.fade;
         const t=Math.max(0,Math.min(1,pulse.t)),pos=bezierPt(t,p0,p1,p2,p3);
         const g=ctx.createRadialGradient(pos.x,pos.y,0,pos.x,pos.y,18*c.width);
-        g.addColorStop(0,gc(c.color,0.9));g.addColorStop(0.2,gc(c.color,0.5));g.addColorStop(0.5,gc(c.color,0.15));g.addColorStop(1,gc(c.color,0));
+        g.addColorStop(0,gc(c.color,0.9*alpha));
+        g.addColorStop(0.2,gc(c.color,0.5*alpha));
+        g.addColorStop(0.5,gc(c.color,0.15*alpha));
+        g.addColorStop(1,gc(c.color,0));
         ctx.beginPath();ctx.arc(pos.x,pos.y,18*c.width,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();
         ctx.beginPath();ctx.arc(pos.x,pos.y,c.width*1.4,0,Math.PI*2);
-        ctx.fillStyle=c.color==='blue'?'rgba(180,210,255,0.95)':'rgba(255,220,140,0.95)';ctx.fill();
-        if(t>0.03){const t2=Math.max(0,t-0.04),pos2=bezierPt(t2,p0,p1,p2,p3);
+        ctx.fillStyle=gcCore(c.color,0.95*alpha);ctx.fill();
+        if(t>0.03){
+          const t2=Math.max(0,t-0.04),pos2=bezierPt(t2,p0,p1,p2,p3);
           const tg=ctx.createLinearGradient(pos2.x,pos2.y,pos.x,pos.y);
-          tg.addColorStop(0,gc(c.color,0));tg.addColorStop(1,gc(c.color,0.5));
+          tg.addColorStop(0,gc(c.color,0));
+          tg.addColorStop(1,gc(c.color,0.5*alpha));
           ctx.beginPath();ctx.moveTo(pos2.x,pos2.y);ctx.lineTo(pos.x,pos.y);
-          ctx.strokeStyle=tg;ctx.lineWidth=c.width*1.8;ctx.stroke();}
+          ctx.strokeStyle=tg;ctx.lineWidth=c.width*1.8;ctx.stroke();
+        }
       });
     });
     requestAnimationFrame(drawCables);
@@ -785,15 +905,6 @@
   }
   doParallax();
   window.addEventListener('scroll',()=>{rings.style.transform=`translateY(${window.scrollY*0.28}px)`;},{passive:true});
-
-  // SPARKS
-  const pEl=document.getElementById('layerParticles');
-  for(let i=0;i<55;i++){
-    const p=document.createElement('div');p.className='spark';
-    const size=Math.random()*2.2+0.4;
-    p.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;--stx:${(Math.random()-0.5)*140}px;--sty:${-(Math.random()*200+30)}px;--sd:${Math.random()*10+7}s;--sdelay:${Math.random()*14}s;width:${size}px;height:${size}px;`;
-    pEl.appendChild(p);
-  }
 
   // SCROLL REVEAL
   const obs=new IntersectionObserver(entries=>{
