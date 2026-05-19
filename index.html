@@ -144,7 +144,7 @@
     }
     .art-orbit img:hover{
       opacity:1;
-      filter:contrast(1.1) brightness(1.15);
+      filter:contrast(1.1) brightness(1.2);
     }
     .art-orbit img:nth-child(1){ animation:orbitSpin 22s linear infinite; }
     .art-orbit img:nth-child(2){ animation:orbitSpin 22s linear infinite; animation-delay:-7.3s; }
@@ -162,8 +162,8 @@
     }
     @media(max-width:768px){
       .art-gallery{ grid-template-columns:1fr; }
-      .art-orbit,.art-orbit-rev{ width:260px; height:260px; margin:1.5rem auto 0; }
-      .art-orbit img,.art-orbit-rev img{ width:100px; height:100px; transform-origin:130px 130px; }
+      .art-orbit,.art-orbit-rev{ width:280px; height:280px; margin:2rem auto 0; }
+      .art-orbit img,.art-orbit-rev img{ width:110px; height:110px; transform-origin:140px 140px; }
       .art-orbit img:nth-child(1){ animation:orbitSpinSm 22s linear infinite; }
       .art-orbit img:nth-child(2){ animation:orbitSpinSm 22s linear infinite; animation-delay:-7.3s; }
       .art-orbit img:nth-child(3){ animation:orbitSpinSm 22s linear infinite; animation-delay:-14.6s; }
@@ -172,29 +172,30 @@
       .art-orbit-rev img:nth-child(3){ animation:orbitSpinRevSm 22s linear infinite; animation-delay:-14.6s; }
     }
     @keyframes orbitSpinSm{
-      from{ transform:rotate(0deg) translateX(85px) rotate(0deg); }
-      to{   transform:rotate(360deg) translateX(85px) rotate(-360deg); }
+      from{ transform:rotate(0deg) translateX(92px) rotate(0deg); }
+      to{   transform:rotate(360deg) translateX(92px) rotate(-360deg); }
     }
     @keyframes orbitSpinRevSm{
-      from{ transform:rotate(0deg) translateX(85px) rotate(0deg); }
-      to{   transform:rotate(-360deg) translateX(85px) rotate(360deg); }
+      from{ transform:rotate(0deg) translateX(92px) rotate(0deg); }
+      to{   transform:rotate(-360deg) translateX(92px) rotate(360deg); }
     }
 
     /* LIGHTBOX */
     .lightbox{
       display:none;
       position:fixed;inset:0;z-index:9000;
-      background:rgba(4,6,10,0.92);
+      background:rgba(4,6,10,0.94);
       align-items:center;justify-content:center;
       cursor:pointer;
     }
     .lightbox.open{ display:flex; }
     .lightbox img{
-      max-width:85vw;max-height:85vh;
+      max-width:88vw;max-height:88vh;
       object-fit:contain;
       mix-blend-mode:screen;
       filter:contrast(1.05) brightness(1.05);
       animation:lbFadeIn 0.3s ease;
+      cursor:default;
     }
     .lightbox-close{
       position:absolute;top:2rem;right:2.5rem;
@@ -204,7 +205,7 @@
     }
     .lightbox-close:hover{ opacity:1; }
     @keyframes lbFadeIn{
-      from{opacity:0;transform:scale(0.96);}
+      from{opacity:0;transform:scale(0.95);}
       to{opacity:1;transform:scale(1);}
     }
 
@@ -652,7 +653,7 @@
   const lbImg = document.getElementById('lightboxImg');
   const lbClose = document.getElementById('lightboxClose');
 
-  document.querySelectorAll('.art-orbit img').forEach(img => {
+  document.querySelectorAll('.art-orbit img, .art-orbit-rev img').forEach(img => {
     img.addEventListener('click', e => {
       e.stopPropagation();
       lbImg.src = img.src;
