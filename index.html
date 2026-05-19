@@ -94,17 +94,28 @@
       position:absolute;
       mix-blend-mode:screen;
       filter:brightness(6) contrast(2) saturate(0);
-      opacity:0.7;
+    }
+    /* each ring has its own size, speed, opacity and parallax depth */
+    .photo-ring-outerouter{
+      width:min(115vw,920px);
+      height:min(115vw,920px);
+      opacity:0.45;
+      animation:ringRot 160s linear infinite;
+      will-change:transform;
     }
     .photo-ring-outer{
       width:min(90vw,700px);
       height:min(90vw,700px);
+      opacity:0.60;
       animation:ringRotRev 120s linear infinite;
+      will-change:transform;
     }
     .photo-ring-inner{
       width:min(55vw,440px);
       height:min(55vw,440px);
-      animation:ringRot 90s linear infinite;
+      opacity:0.75;
+      animation:ringRot 75s linear infinite;
+      will-change:transform;
     }
 
     .layer-wires{
@@ -477,9 +488,10 @@
   <div id="layerSmoke" style="position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden;"></div>
 
   <!-- PHOTO RINGS -->
-  <div class="layer-photo-rings">
-    <img class="photo-ring photo-ring-outer" src="outerring.png" alt="">
-    <img class="photo-ring photo-ring-inner" src="innerring.png" alt="">
+  <div class="layer-photo-rings" id="layerPhotoRings">
+    <img class="photo-ring photo-ring-outerouter" id="ringOuterOuter" src="outerouter.png" alt="">
+    <img class="photo-ring photo-ring-outer" id="ringOuter" src="outerring.png" alt="">
+    <img class="photo-ring photo-ring-inner" id="ringInner" src="innerring.png" alt="">
   </div>
 
   <div class="layer-wires" id="layerWires">
@@ -893,14 +905,24 @@
   const rings=document.getElementById('layerRings');
   const wiresEl=document.getElementById('layerWires');
   const particles=document.getElementById('layerParticles');
+  const ringOO=document.getElementById('ringOuterOuter');
+  const ringO=document.getElementById('ringOuter');
+  const ringI=document.getElementById('ringInner');
   let mx=0,my=0,pcx=0,pcy=0;
   window.addEventListener('mousemove',e=>{mx=e.clientX/window.innerWidth-0.5;my=e.clientY/window.innerHeight-0.5;});
   function lerp(a,b,t){return a+(b-a)*t;}
   function doParallax(){
     pcx=lerp(pcx,mx,0.04);pcy=lerp(pcy,my,0.04);
+    // SVG rings — background, slowest
     rings.style.transform=`translate(${pcx*-22}px,${pcy*-22}px)`;
+    // cables — midground
     wiresEl.style.transform=`translate(${pcx*14}px,${pcy*14}px)`;
+    // particles — foreground
     particles.style.transform=`translate(${pcx*32}px,${pcy*32}px)`;
+    // photo rings — each at different depth
+    if(ringOO) ringOO.style.transform=`translate(${pcx*-8}px,${pcy*-8}px)`;   // deep background
+    if(ringO)  ringO.style.transform =`translate(${pcx*-16}px,${pcy*-16}px)`;  // mid-background
+    if(ringI)  ringI.style.transform =`translate(${pcx*-26}px,${pcy*-26}px)`;  // closer mid
     requestAnimationFrame(doParallax);
   }
   doParallax();
