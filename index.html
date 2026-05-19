@@ -153,9 +153,11 @@
       from{ transform:rotate(0deg) translateX(145px) rotate(0deg); }
       to{   transform:rotate(360deg) translateX(145px) rotate(-360deg); }
     }
-    .art-orbit-rev img:nth-child(1){ animation:orbitSpinRev 22s linear infinite; }
-    .art-orbit-rev img:nth-child(2){ animation:orbitSpinRev 22s linear infinite; animation-delay:-7.3s; }
-    .art-orbit-rev img:nth-child(3){ animation:orbitSpinRev 22s linear infinite; animation-delay:-14.6s; }
+    .art-orbit-rev img:nth-child(1){ animation:orbitSpinRev 28s linear infinite; }
+    .art-orbit-rev img:nth-child(2){ animation:orbitSpinRev 28s linear infinite; animation-delay:-5.6s; }
+    .art-orbit-rev img:nth-child(3){ animation:orbitSpinRev 28s linear infinite; animation-delay:-11.2s; }
+    .art-orbit-rev img:nth-child(4){ animation:orbitSpinRev 28s linear infinite; animation-delay:-16.8s; }
+    .art-orbit-rev img:nth-child(5){ animation:orbitSpinRev 28s linear infinite; animation-delay:-22.4s; }
     @keyframes orbitSpinRev{
       from{ transform:rotate(0deg) translateX(145px) rotate(0deg); }
       to{   transform:rotate(-360deg) translateX(145px) rotate(360deg); }
@@ -167,9 +169,11 @@
       .art-orbit img:nth-child(1){ animation:orbitSpinSm 22s linear infinite; }
       .art-orbit img:nth-child(2){ animation:orbitSpinSm 22s linear infinite; animation-delay:-7.3s; }
       .art-orbit img:nth-child(3){ animation:orbitSpinSm 22s linear infinite; animation-delay:-14.6s; }
-      .art-orbit-rev img:nth-child(1){ animation:orbitSpinRevSm 22s linear infinite; }
-      .art-orbit-rev img:nth-child(2){ animation:orbitSpinRevSm 22s linear infinite; animation-delay:-7.3s; }
-      .art-orbit-rev img:nth-child(3){ animation:orbitSpinRevSm 22s linear infinite; animation-delay:-14.6s; }
+      .art-orbit-rev img:nth-child(1){ animation:orbitSpinRevSm 28s linear infinite; }
+      .art-orbit-rev img:nth-child(2){ animation:orbitSpinRevSm 28s linear infinite; animation-delay:-5.6s; }
+      .art-orbit-rev img:nth-child(3){ animation:orbitSpinRevSm 28s linear infinite; animation-delay:-11.2s; }
+      .art-orbit-rev img:nth-child(4){ animation:orbitSpinRevSm 28s linear infinite; animation-delay:-16.8s; }
+      .art-orbit-rev img:nth-child(5){ animation:orbitSpinRevSm 28s linear infinite; animation-delay:-22.4s; }
     }
     @keyframes orbitSpinSm{
       from{ transform:rotate(0deg) translateX(92px) rotate(0deg); }
@@ -537,7 +541,7 @@
     </div>
     <div class="entry reveal">
       <div class="entry-meta"><div class="entry-label">—</div><div class="entry-role">Custom Work</div></div>
-      <div><div class="entry-title">Artists &amp; Collaborators</div><div class="entry-body">Custom garments and accessories for underground music artists. Custom shoes for Perto. Custom severed limb keychains for bbpue and Perto. Toured Eric Payne's studio — studied shoemaking from the ground up.</div></div>
+      <div><div class="entry-title">Artists &amp; Collaborators</div><div class="entry-body">Custom garments and accessories for underground music artists. Keychain for Fakemink and Xaviersobased. Custom shoes for Perto. Custom severed limb keychains for bbpue and Perto. Toured Eric Payne's studio — studied shoemaking from the ground up.</div></div>
     </div>
     <div class="entry reveal" style="border-top:1px solid var(--rule);margin-top:0;">
       <div class="entry-meta"><div class="entry-label">Personal Brand</div><div class="entry-role">Designer</div></div>
@@ -550,6 +554,8 @@
           <img src="earfinger.png" alt="">
           <img src="gloves.png" alt="">
           <img src="shoes.png" alt="">
+          <img src="bunny.png" alt="">
+          <img src="bag.png" alt="" data-glow="bagglow.png" data-normal="bag.png" class="bag-img">
         </div>
       </div>
     </div>
@@ -644,6 +650,7 @@
 
 <div class="lightbox" id="lightbox">
   <div class="lightbox-close" id="lightboxClose">close</div>
+  <button id="lightboxToggle" style="display:none;position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);background:rgba(10,12,16,0.8);border:1px solid rgba(200,200,200,0.2);color:var(--paper);font-family:'Crimson Pro',serif;font-size:1rem;letter-spacing:0.12em;padding:0.5rem 1.5rem;cursor:pointer;border-radius:2px;transition:all 0.2s;z-index:9001;">☀ glow</button>
   <img id="lightboxImg" src="" alt="">
 </div>
 
@@ -652,13 +659,29 @@
   const lb = document.getElementById('lightbox');
   const lbImg = document.getElementById('lightboxImg');
   const lbClose = document.getElementById('lightboxClose');
+  const lbToggle = document.getElementById('lightboxToggle');
+  let glowOn = false;
+  let currentGlow = null;
+  let currentNormal = null;
 
   document.querySelectorAll('.art-orbit img, .art-orbit-rev img').forEach(img => {
     img.addEventListener('click', e => {
       e.stopPropagation();
+      glowOn = false;
+      currentGlow = img.dataset.glow || null;
+      currentNormal = img.dataset.normal || null;
       lbImg.src = img.src;
+      lbToggle.style.display = currentGlow ? 'block' : 'none';
+      lbToggle.textContent = '☀ glow';
       lb.classList.add('open');
     });
+  });
+
+  lbToggle.addEventListener('click', e => {
+    e.stopPropagation();
+    glowOn = !glowOn;
+    lbImg.src = glowOn ? currentGlow : currentNormal;
+    lbToggle.textContent = glowOn ? '☀ normal' : '☀ glow';
   });
 
   lb.addEventListener('click', () => lb.classList.remove('open'));
