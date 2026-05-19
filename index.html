@@ -114,9 +114,82 @@
       }
     }
 
-    .spark{
-      position:absolute;border-radius:50%;background:var(--gold);opacity:0;
-      animation:sparkDrift var(--sd) var(--sdelay) ease-in infinite;
+    /* ART GALLERY */
+    .art-gallery{
+      display:grid;
+      grid-template-columns:1fr 220px;
+      gap:2rem;
+      align-items:start;
+    }
+    .art-orbit{
+      position:relative;
+      width:220px;
+      height:220px;
+      flex-shrink:0;
+    }
+    .art-orbit img{
+      position:absolute;
+      width:90px;
+      height:90px;
+      object-fit:cover;
+      border-radius:4px;
+      mix-blend-mode:screen;
+      filter:contrast(1.1) brightness(0.9);
+      opacity:0.85;
+      transform-origin:110px 110px;
+    }
+    .art-orbit img:nth-child(1){ animation:orbitSpin 18s linear infinite; }
+    .art-orbit img:nth-child(2){ animation:orbitSpin 18s linear infinite; animation-delay:-6s; }
+    .art-orbit img:nth-child(3){ animation:orbitSpin 18s linear infinite; animation-delay:-12s; }
+    @keyframes orbitSpin{
+      from{ transform:rotate(0deg) translateX(80px) rotate(0deg); }
+      to{   transform:rotate(360deg) translateX(80px) rotate(-360deg); }
+    }
+    @media(max-width:768px){
+      .art-gallery{ grid-template-columns:1fr; }
+      .art-orbit{ width:160px; height:160px; margin-top:1.5rem; }
+      .art-orbit img{ width:65px; height:65px; transform-origin:80px 80px; }
+      .art-orbit img:nth-child(1){ animation:orbitSpinSm 18s linear infinite; }
+      .art-orbit img:nth-child(2){ animation:orbitSpinSm 18s linear infinite; animation-delay:-6s; }
+      .art-orbit img:nth-child(3){ animation:orbitSpinSm 18s linear infinite; animation-delay:-12s; }
+      @keyframes orbitSpinSm{
+        from{ transform:rotate(0deg) translateX(55px) rotate(0deg); }
+        to{   transform:rotate(360deg) translateX(55px) rotate(-360deg); }
+      }
+    }
+
+    /* HERO ART ORBIT */
+    .hero-orbit{
+      position:absolute;
+      left:3rem;
+      top:50%;
+      transform:translateY(-50%);
+      z-index:5;
+      pointer-events:none;
+      width:280px;
+      height:280px;
+      opacity:0;
+      animation:fadeUp 1.5s 1.4s forwards;
+    }
+    .hero-orbit img{
+      position:absolute;
+      width:80px;
+      height:80px;
+      object-fit:cover;
+      border-radius:3px;
+      mix-blend-mode:screen;
+      filter:contrast(1.15) brightness(0.85);
+      opacity:0.6;
+      transform-origin:140px 140px;
+    }
+    .hero-orbit img:nth-child(1){ animation:orbitSpinHero 22s linear infinite; }
+    .hero-orbit img:nth-child(2){ animation:orbitSpinHero 22s linear infinite; animation-delay:-7.3s; }
+    .hero-orbit img:nth-child(3){ animation:orbitSpinHero 22s linear infinite; animation-delay:-14.6s; }
+    @keyframes orbitSpinHero{
+      from{ transform:rotate(0deg) translateX(100px) rotate(0deg); }
+      to{   transform:rotate(360deg) translateX(100px) rotate(-360deg); }
+    }
+    @media(max-width:768px){ .hero-orbit{ display:none; } }
     }
 
     /* HERO TEXT */
@@ -380,6 +453,13 @@
 
   <div class="layer-particles" id="layerParticles"></div>
 
+  <!-- ART ORBIT IN HERO -->
+  <div class="hero-orbit">
+    <img src="syegedigiwork.png" alt="">
+    <img src="typology.png" alt="">
+    <img src="chariot.png" alt="">
+  </div>
+
   <div class="hero-content">
     <div class="hero-loc">Los Angeles, California</div>
     <h1>Cole<br><em>Salix</em></h1>
@@ -425,10 +505,12 @@
   <div class="entries">
     <div class="entry reveal">
       <div class="entry-meta"><div class="entry-label">—</div><div class="entry-role">Model</div></div>
-      <div>
-        <div class="entry-title">Runway &amp; Editorial</div>
-        <div class="entry-body">Modeled for vawnupton, hlywrk, jacov, and other LA designers. Runway, product promotion, on-camera work. A presence in the underground LA fashion circuit.</div>
-        <img src="newsubject.png" alt="Cole Salix" style="width:100%;max-width:380px;display:block;margin-top:1.5rem;mix-blend-mode:screen;filter:contrast(1.1) brightness(0.95);opacity:0.88;">
+      <div style="display:grid;grid-template-columns:1fr 260px;gap:2rem;align-items:start;">
+        <div>
+          <div class="entry-title">Runway &amp; Editorial</div>
+          <div class="entry-body">Modeled for vawnupton, hlywrk, jacov, and other LA designers. Runway, product promotion, on-camera work. A presence in the underground LA fashion circuit.</div>
+        </div>
+        <img src="newsubject.png" alt="Cole Salix" style="width:100%;display:block;mix-blend-mode:screen;filter:contrast(1.1) brightness(0.95);opacity:0.88;margin-top:-1rem;">
       </div>
     </div>
     <div class="entry reveal">
@@ -509,7 +591,17 @@
     </div>
     <div class="entry reveal">
       <div class="entry-meta"><div class="entry-label">Visual</div><div class="entry-role">Multi-medium</div></div>
-      <div><div class="entry-title">Drawing, Painting, Sculpture, Typology</div><div class="entry-body">I have always made art. My bedroom walls are covered in drawings. I'm equipped with the skills of Adobe Illustrator, Photoshop, and Premiere Pro.</div></div>
+      <div class="art-gallery">
+        <div>
+          <div class="entry-title">Drawing, Painting, Sculpture, Typology</div>
+          <div class="entry-body">I have always made art. My bedroom walls are covered in drawings. I'm equipped with the skills of Adobe Illustrator, Photoshop, and Premiere Pro.</div>
+        </div>
+        <div class="art-orbit">
+          <img src="syegedigiwork.png" alt="">
+          <img src="typology.png" alt="">
+          <img src="chariot.png" alt="">
+        </div>
+      </div>
     </div>
     <div class="entry reveal">
       <div class="entry-meta"><div class="entry-label">Digital</div><div class="entry-role">Web / Design</div></div>
