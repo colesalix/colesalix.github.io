@@ -217,6 +217,16 @@
       to{   transform:rotate(-360deg) translateX(92px) rotate(360deg); }
     }
 
+    /* graphic design wheel spins the opposite way */
+    .art-orbit.gd-orbit img:nth-child(1){ animation:orbitSpinRev 22s linear infinite; }
+    .art-orbit.gd-orbit img:nth-child(2){ animation:orbitSpinRev 22s linear infinite; animation-delay:-7.3s; }
+    .art-orbit.gd-orbit img:nth-child(3){ animation:orbitSpinRev 22s linear infinite; animation-delay:-14.6s; }
+    @media(max-width:768px){
+      .art-orbit.gd-orbit img:nth-child(1){ animation:orbitSpinRevSm 22s linear infinite; }
+      .art-orbit.gd-orbit img:nth-child(2){ animation:orbitSpinRevSm 22s linear infinite; animation-delay:-7.3s; }
+      .art-orbit.gd-orbit img:nth-child(3){ animation:orbitSpinRevSm 22s linear infinite; animation-delay:-14.6s; }
+    }
+
     /* LIGHTBOX */
     .lightbox{
       display:none;
@@ -241,6 +251,13 @@
       transition:opacity 0.2s;letter-spacing:0.1em;
     }
     .lightbox-close:hover{ opacity:1; }
+    .lightbox img.lb-plain{ mix-blend-mode:normal; filter:none; }
+    .lightbox-caption{
+      position:absolute;bottom:1rem;left:0;right:0;text-align:center;
+      font-family:'Spectral',serif;font-style:italic;font-size:13px;
+      letter-spacing:0.08em;color:var(--muted);pointer-events:none;
+    }
+    .lightbox-caption:empty{ display:none; }
     @keyframes lbFadeIn{
       from{opacity:0;transform:scale(0.95);}
       to{opacity:1;transform:scale(1);}
@@ -367,6 +384,8 @@
     .contact-links{display:flex;flex-direction:column;gap:0.45rem;}
     .contact-links a{font-family:'Crimson Pro',serif;font-size:14px;letter-spacing:0.1em;color:var(--muted);transition:color 0.3s,letter-spacing 0.3s;}
     .contact-links a:hover{color:var(--gold);letter-spacing:0.18em;}
+    .contact-intro{font-family:'Crimson Pro',serif;font-size:14px;letter-spacing:0.1em;color:var(--muted);margin-bottom:0.25rem;}
+    .contact-row{font-family:'Crimson Pro',serif;font-size:14px;letter-spacing:0.1em;color:var(--muted);}
 
     footer{padding:1.5rem 3rem;display:flex;justify-content:space-between;font-family:'Crimson Pro',serif;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--dim);border-top:1px solid var(--rule);}
 
@@ -411,6 +430,7 @@
     <li><a href="#fashion">Fashion</a></li>
     <li><a href="#music">Music</a></li>
     <li><a href="#art">Art</a></li>
+    <li><a href="#graphic-design">Graphic Design</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
@@ -501,7 +521,6 @@
   <div class="layer-particles" id="layerParticles"></div>
 
   <div class="hero-content">
-    <div class="hero-loc">Los Angeles, California</div>
     <h1>Cole<br><em>Salix</em></h1>
     <div class="hero-rule"></div>
     <div class="hero-bottom">
@@ -519,7 +538,7 @@
     <span>Coin Laundry Mfg</span><span class="sep">✦</span>
     <span>ditch.la</span><span class="sep">✦</span>
     <span>AJobInterview</span><span class="sep">✦</span>
-    <span>Single Mothers</span><span class="sep">✦</span>
+    <span>singlemothers</span><span class="sep">✦</span>
     <span>syege</span><span class="sep">✦</span>
     <span>vawnupton</span><span class="sep">✦</span>
     <span>hlywrk</span><span class="sep">✦</span>
@@ -528,7 +547,7 @@
     <span>Coin Laundry Mfg</span><span class="sep">✦</span>
     <span>ditch.la</span><span class="sep">✦</span>
     <span>AJobInterview</span><span class="sep">✦</span>
-    <span>Single Mothers</span><span class="sep">✦</span>
+    <span>singlemothers</span><span class="sep">✦</span>
     <span>syege</span><span class="sep">✦</span>
     <span>vawnupton</span><span class="sep">✦</span>
     <span>hlywrk</span><span class="sep">✦</span>
@@ -599,16 +618,12 @@
     <div class="entry reveal">
       <div class="entry-meta"><div class="entry-label">Band</div><div class="entry-role">Producer / Member</div></div>
       <div>
-        <div class="entry-title">Single Mothers</div>
+        <div class="entry-title">singlemothers</div>
         <div class="entry-body">Electronic music band. Co-writing and producing original material. Solo work released under the alias syege.</div>
         <div class="spotify-wrap">
-          <iframe style="border-radius:12px" src="https://open.spotify.com/embed/artist/2vZ0NW9bYvZhlln27d5UKG?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/artist/7ELutXdNRMOxB3qCpWoNPk?utm_source=generator&si=533486705f49453c" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="singlemothers on Spotify"></iframe>
         </div>
       </div>
-    </div>
-    <div class="entry reveal">
-      <div class="entry-meta"><div class="entry-label">Live</div><div class="entry-role">DJ / Sound</div></div>
-      <div><div class="entry-title">Live Sets &amp; Sound Systems</div><div class="entry-body">DJ sets at shows across LA. Full sound system setup and operation. Fluent in Ableton Live, FL Studio, and live performance hardware.</div></div>
     </div>
     <div class="entry reveal">
       <div class="entry-meta"><div class="entry-label">Ongoing</div><div class="entry-role">Founder</div></div>
@@ -659,25 +674,53 @@
   </div>
 </section>
 
+<!-- GRAPHIC DESIGN -->
+<section id="graphic-design">
+  <div class="section-header reveal">
+    <div class="section-index">04</div>
+    <div class="section-title">Graphic Design</div>
+    <div class="section-note">Selected</div>
+  </div>
+  <div class="entries">
+    <div class="entry reveal">
+      <div class="entry-meta"><div class="entry-label">Print &amp; Digital</div><div class="entry-role">Designer</div></div>
+      <div class="art-gallery">
+        <div>
+          <div class="entry-title">Collage, Stickers, Multimedia</div>
+          <div class="entry-body">I love to see my ideas come to life, and by designing logos, art pieces, stickers, and other forms of graphic design, I am able to bring thoughts in my head to the physical world to be seen and touched by anyone who may view it.</div>
+        </div>
+        <div class="art-orbit gd-orbit">
+          <img src="smdesigns-s.png" data-full="smdesigns.png" data-plain="1" data-caption="SMdesigns — singlemothers creative design collage" alt="SMdesigns: singlemothers creative design collage">
+          <img src="holo1-s.png" data-full="holo1.png" data-caption="holo1 — sticker designs to promote Syege" alt="holo1: sticker designs promoting the Syege brand">
+          <img src="threshold.png" data-caption="threshold — a multimedia art piece" alt="threshold: a multimedia art piece">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact">
   <div class="contact-wrap reveal">
     <div class="contact-links">
-      <a href="mailto:tntcolep@gmail.com">tntcolep@gmail.com</a>
-      <a href="https://instagram.com/sy3ge" target="_blank">@sy3ge ↗</a>
+      <div class="contact-intro">if you want to bring your ideas to life:</div>
+      <a href="mailto:colesalix@gmail.com">colesalix@gmail.com</a>
+      <div class="contact-row"><a href="https://instagram.com/sy3ge" target="_blank" rel="noopener">@sy3ge ↗</a><span> - design</span></div>
+      <div class="contact-row"><a href="https://instagram.com/s471x" target="_blank" rel="noopener">@s471x ↗</a><span> - music</span></div>
     </div>
   </div>
 </section>
 
 <footer>
   <span>Cole Salix</span>
-  <span>Los Angeles — © 2026</span>
+  <span>© 2026</span>
 </footer>
 
 <div class="lightbox" id="lightbox">
   <div class="lightbox-close" id="lightboxClose">close</div>
   <button id="lightboxToggle" style="display:none;position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);background:rgba(10,12,16,0.8);border:1px solid rgba(200,200,200,0.2);color:var(--paper);font-family:'Crimson Pro',serif;font-size:1rem;letter-spacing:0.12em;padding:0.5rem 1.5rem;cursor:pointer;border-radius:2px;transition:all 0.2s;z-index:9001;">☀ glow</button>
   <img id="lightboxImg" src="" alt="">
+  <div class="lightbox-caption" id="lightboxCaption"></div>
 </div>
 
 <script>
@@ -686,6 +729,7 @@
   const lbImg = document.getElementById('lightboxImg');
   const lbClose = document.getElementById('lightboxClose');
   const lbToggle = document.getElementById('lightboxToggle');
+  const lbCaption = document.getElementById('lightboxCaption');
   let glowOn = false;
   let currentGlow = null;
   let currentNormal = null;
@@ -696,7 +740,9 @@
       glowOn = false;
       currentGlow = img.dataset.glow || null;
       currentNormal = img.dataset.normal || null;
-      lbImg.src = img.src;
+      lbImg.classList.toggle('lb-plain', img.dataset.plain === '1');
+      lbCaption.textContent = img.dataset.caption || '';
+      lbImg.src = img.dataset.full || img.src;
       lbToggle.style.display = currentGlow ? 'block' : 'none';
       lbToggle.textContent = '☀ glow';
       lb.classList.add('open');
